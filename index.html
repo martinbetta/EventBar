@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Simulador de Eventos</title>
+    <link rel="stylesheet" href="assets/styles/app.css" />
+    <script src="assets/scripts/app.js" defer></script>
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/23170058e7.js" crossorigin="anonymous"></script>
+
+
+  </head>
+  <body>
+    <div class ='nav-bar'>
+      <div class ='logotipo'> 
+        <img src="img/logo.jpg" alt>
+        <h1 class="logo">EventART</h1> 
+        <h2>Arma tu evento </h2>
+      </div>
+      <div class='info'> 
+  
+        <i class="fas fa-phone"></i> +555 525225 | <i class="fas fa-envelope"></i> ventas |
+        Seguinos en <i class="fab fa-facebook-square"> | Facebook</i> | <i class="fab fa-instagram-square"></i> Instagram
+ 
+      </div>
+    </div>
+
+
+    <div class='CompletBanner'> 
+      <div class='banner'>
+      </div>    
+      <div class='tituloBanner'>     
+        <h2>El servicio mas profesional y al mejor precio</h2>
+      </div>  
+    </div>
+
+    <div id="backdrop"></div>
+    <div class="modal card" id="add-modal">
+      <div class="modal__content">
+       
+        <label for="title">Nombre del Evento</label>
+        <input type="text" name="title" id="title" />
+
+        <label for="calidad">Calidad de las bebidas</label>
+        <input
+          type="number"
+          step="1"
+          max="10"
+          min="1"
+          name="calidad"
+          id="calidad"
+        />
+
+        <label for="num-inv">Cantidad de Invitados</label>
+        <input
+          type="number"
+          step="1"
+          min="1"
+          name="num-inv"
+          id="num-inv"
+        />
+
+        <label for="cantidad-bebidas">Cantidad de Bebidas por Invitado</label>
+        <input
+          type="number"
+          step="1"
+          min="1"
+          name="cantidad-bebidas"
+          id="cantidad-bebidas"
+        />
+      </div>
+      <div class="modal__actions">
+        <button class="btn btn--passive">Cancel</button>
+        <button class="btn btn--success">Add</button>
+      </div>
+    </div>
+    <div class="modal card" id="delete-modal">
+      <h2 class="modal__title">Are you sure?</h2>
+      <p class="modal__content">
+        Are you sure you want to delete this item? This action can't be made
+        undone!
+      </p>
+      <div class="modal__actions">
+        <button class="btn btn--passive">No (Cancel)</button>
+        <button class="btn btn--danger">Yes</button>
+      </div>
+    </div>
+
+    <header>
+      <h1>Como sera tu Evento?</h1>
+      <button>Arrancar simulador</button>
+    </header>
+
+    <main>
+      <section id="entry-text" class="card">
+        <p>Simulador de Eventos</p>
+      </section>
+      <ul id="event-list"></ul>
+    </main>
+
+
+     <div class='variedad'> 
+        <h2 >Nuestras opciones</h2>
+      </div>
+        
+      <div class='grid-container'> 
+          <img class = 'grid-item'src="img/cerveza.JPG" alt="cerveza x">
+          <img class = 'grid-item'src="img/ron-bacardi-1-litro_24h.jpg" alt="cerveza x">
+          <img class = 'grid-item'src="img/VODKA_ABSOLUT_70_CL2_1024x1024_24h.jpg" alt="cerveza x">
+          <img class = 'grid-item'src="img/Smirnoff_24h.jpg" alt="cerveza x">
+          <img class = 'grid-item'src="img/bulldog_24h.jpg" alt="cerveza x">
+          <img class = 'grid-item'src="img/cacique-anejo-70-cl_24h.jpg" alt="cerveza x">
+          <img class = 'grid-item'src="img/Tanqueray_24h.jpg" alt="cerveza x">
+          <img class = 'grid-item'src="img/budweiser-lata-33cl_24h.jpg" alt="cerveza x">
+      </div>
+      <footer>
+        <p>© 2021 EventART 24H - Tienda : Venta de bebidas frias las 24 horas en todo el Pais</p>
+      </footer>
+  </body>
+</html>
