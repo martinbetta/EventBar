@@ -13,7 +13,7 @@ class Evento {
 }
 
 class Pedido {
-  constructor(bebida,  cantidad,  precio, total){
+  constructor(bebida, cantidad, precio, total){
     this.id =id 
     this.bebida =bebida;
     this.calidad = cantidad;
@@ -33,6 +33,7 @@ const userInputs = addEventModal.querySelectorAll('input');
 const userSelector = addEventModal.querySelectorAll('selector');
 
 const entryTextSection = document.getElementById('entry-text')
+const deleteEventModal = document.getElementById('delete-modal');
 
 
 
@@ -50,14 +51,22 @@ const toggleBackdrop = () =>{
   backdrop.classList.toggle('visible');
 };
 
-const toggleEventModal = () => { // function() {}
-  addEventModal.classList.toggle('visible');
+
+closeEventModal = () =>{
+  addEventModal.classList.remove('visible');
+};
+
+
+const showEventModal = () => { // function() {}
+  addEventModal.classList.add('visible');
   toggleBackdrop();// llamo para que ademas de hacer visible haga el efecto sombra.
 };
 
 const cancelAddEventHandler = () =>{
-   toggleEventModal();
+   closeEventModal();
    clearEventInputs();
+   toggleBackdrop();
+
 };
 
 // Vaciar el Form luego de Usar para que no quede la ultima carga
@@ -89,14 +98,16 @@ const addEventHandler = () =>{
   const cargEvent = new Evento(titleValue, calidadValue, cantBebValue, cantInvValue, id);
   console.log(cargEvent);
   create(cargEvent)
-  toggleEventModal();
+  closeEventModal();
   clearEventInputs();
   renderNewEventElem();
   updateListEvent();
+  toggleBackdrop();
 };
 
 const backdropClickHandler =() => {
-  toggleEventModal();
+  closeEventModal();
+  cancelEventDelete();
 };
 
 //// TOMAR ELEMENTOS DEL localStorage Mediante JSON y pasarlo a String//// 
@@ -116,12 +127,18 @@ const create = (evento) => {
 //   console.log( id)
 // }
 
-const deleteEventHandler = (eventId) =>{
+const cancelEventDelete =() =>{
+  toggleBackdrop();
+  deleteEventModal.classList.remove('visible');
+};
+
+const deleteEvent = (eventId) =>{
+
   let identifyId = 0;
   for (let event of eventos){
     if (event.id ===eventId){
       break;
-
+  
     }
     identifyId++;
   }
@@ -130,7 +147,27 @@ const deleteEventHandler = (eventId) =>{
   const listEvents = document.getElementById('event-list');
   console.log(identifyId);
   listEvents.children[identifyId].remove();
+  cancelEventDelete();
 
+}
+
+
+const deleteEventHandler = (eventId) =>{
+  deleteEventModal.classList.add('visible');
+  toggleBackdrop();
+  const cancelDeleteButton = deleteEventModal.querySelector('.btn--passive');
+  
+  // pase de const a Let porque sino no cambiara el DOM con el cloneNode
+  let confirmDeleteButton = deleteEventModal.querySelector('.btn--danger');
+// crea un nuevo donde el listener es Eliminado, para que detenga el proceso, el nuevo elemeno es mediante cloneNode, sino el texto dentro del parentesis
+//no se clona. 
+  confirmDeleteButton.replaceWith(confirmDeleteButton.cloneNode(true)); 
+  confirmDeleteButton = deleteEventModal.querySelector('.btn--danger');
+  
+  cancelDeleteButton.removeEventListener('click', cancelEventDelete);
+  cancelDeleteButton.addEventListener('click', cancelEventDelete);
+  confirmDeleteButton.addEventListener('click', deleteEvent.bind(null, eventId));
+//  deleteEvent (eventId);
 };
 const renderNewEventElem = () =>{
   for (let event of eventos) {
@@ -163,7 +200,7 @@ const renderNewEventElem = () =>{
 
 
 /// Eventos ///////
-startAddEventButton.addEventListener('click', toggleEventModal);
+startAddEventButton.addEventListener('click', showEventModal);
 backdrop.addEventListener('click',backdropClickHandler); // Este listener sirve para que cuando haga click en el fondo gris s cierre el form
 cancelAddEventButton.addEventListener('click',cancelAddEventHandler);
 confirmAddEventButton.addEventListener('click',addEventHandler);
