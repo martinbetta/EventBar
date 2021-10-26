@@ -61,11 +61,24 @@ input {
   padding: 0.4rem 0.2rem;
   color: #383838;
 }
-
 input:focus {
   outline: none;
   background: #fff1c4;
 }
+/* Era un select que no se si pondre */
+select {
+  font: inherit;
+  border: 1px solid #ccc;
+  padding: 0.4rem 0.2rem;
+  color: #383838;
+}
+select:focus {
+  outline: none;
+  background: #fff1c4;
+}
+/* Era un select que no se si pondre */
+
+
 
 .btn {
   font: inherit;
@@ -116,7 +129,7 @@ input:focus {
 }
 
 .modal {
-  position: fixed;
+  position: fixed; 
   z-index: 100;
   width: 80%;
   top: 30vh;
@@ -253,13 +266,14 @@ input:focus {
   flex-direction: column;
 }
 
+/* Tamaño del FORM */
 @media (min-width: 768px) {
   .modal {
     width: 40rem;
     left: calc(50% - 20rem);
   }
 }
-
+/* MOVIMIENTO DEL FORM EFECTO */
 @keyframes fade-slide-in {
   from {
     transform: translateY(-5rem);
@@ -320,11 +334,12 @@ input:focus {
 }
 .tituloBanner h2{   
     color:white;
-    padding-top: 100px;
+    padding-top: 400px;
     padding-left: 300px;
+    font-size: 7vh;
 }
 .banner{
-    background-image: url("https://images.unsplash.com/photo-1496318447583-f524534e9ce1?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1868&q=80");
+    background-image: url("https://images.unsplash.com/photo-1532634922-8fe0b757fb13?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1172&q=80");
     height: 300px;
     width:100%;
     padding: 300px 100px;

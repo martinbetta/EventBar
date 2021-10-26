@@ -1,3 +1,5 @@
+// import {  } from './productos';
+
 class Evento {
   constructor(titulo,calidad,consumiciones,invitados) {
     this.titulo = titulo;
@@ -5,25 +7,21 @@ class Evento {
     this.consumiciones = consumiciones;
     this.calidad = calidad;
     this.id = Math.random().toString();
+    // this.opciones = opciones; 
   }
-  // No se como hacer para mostrar en pantalla este Metodo en la Funcion "renderNewEventElem" le Habia agregado el atributo "evento" 
-  //pero tampoco arranco
-  costoInv (costo, vas, inv) {
-        let precio = 0;
-    if (costo <= 3){
-      precio = Number(3)
-    } else if (costo <= 6){
-      precio = Number(5)
-    } else if (costo <=8){
-      precio = Number(7)
-    } else if (costo <=10){
-      precio = Number(9)
-    } else {alert ("ingrese un valor valido de calidad")}
-    const valor = vas * precio
-    const valorTot= valor*inv
-    return valorTot
+
+}
+
+class Pedido {
+  constructor(bebida,  cantidad,  precio, total){
+    this.id =id 
+    this.bebida =bebida;
+    this.calidad = cantidad;
+    this.precio = precio;
+    this.total = total;
   }
-}  
+}
+
 /// Variables///////
 const addEventModal = document.getElementById('add-modal');
 
@@ -32,7 +30,12 @@ const backdrop = document.getElementById('backdrop');
 const cancelAddEventButton = addEventModal.querySelector('.btn--passive');
 const confirmAddEventButton = cancelAddEventButton.nextElementSibling;
 const userInputs = addEventModal.querySelectorAll('input');
+const userSelector = addEventModal.querySelectorAll('selector');
+
 const entryTextSection = document.getElementById('entry-text')
+
+
+
 
 
 /// Funciones ///////
@@ -109,9 +112,9 @@ const create = (evento) => {
 }
 //// CREO ELEMNTOS EN EL NAVEGADOR///////////
 
-const printId = (id) =>{
-  console.log( id)
-}
+// const printId = (id) =>{
+//   console.log( id)
+// }
 
 const deleteEventHandler = (eventId) =>{
   let identifyId = 0;
@@ -136,16 +139,23 @@ const renderNewEventElem = () =>{
   newEventElement.className = 'event-element';
   newEventElement.innerHTML = `
   <div class="event-element__info">
-    <h2>El titulo del evento es: ${event.titulo} <button> Eliminar </button></h2>
+   
+    <h2>El titulo del evento es: ${event.titulo}  <button id='delete-Button'> Eliminar </button> </h2> 
     <p>La calidad seleccionada es ${event.calidad}</p> <br>
     <p> Cantidad de consumiciones ${event.consumiciones}</p> <br>
     <p>Total invitados ${event.invitados}</p> <br>
     <p>Total consumiciones ${event.consumiciones*event.invitados}
     </div>`;
-    newEventElement.addEventListener('click', printId.bind(null,eventos))
-    // newEventElement.addEventListener('click', deleteEventHandler.bind(null,eventos)) //Agrego Bind Porque es un elemento que AUN NO EXISTE. 
+  
+    // newEventElement.addEventListener('click', printId.bind(null,eventos)) // PRUEBA PARA VER SI ME TRAE ID..
+    
+    
     const listEvents =document.getElementById('event-list');
     listEvents.append(newEventElement);
+    newEventElement.addEventListener('click', deleteEventHandler.bind(null,event.id)) //Agrego Bind Porque es un elemento que AUN NO EXISTE. 
+    // const elementInfo= document.getElementsByClassName('event-element__info')
+    // const deleteEvent = document.elementInfo.children
+    // deleteEvent.addEventListener('click', deleteEventHandler.bind(null,event.id)) //Agrego Bind Porque es un elemento que AUN NO EXISTE. 
  }
 };
 //<p>Costo Evento ${evento.costoInv(evento.calidad,evento.consumiciones,evento.invitados)}; No se como meter dentro del la Funcion es
