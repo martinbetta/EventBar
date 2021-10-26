@@ -16,8 +16,8 @@
     <div class ='nav-bar'>
       <div class ='logotipo'> 
         <img src="img/logo.jpg" alt>
-        <h1 class="logo">EventART</h1> 
-        <h2>Arma tu evento </h2>
+        <h1 class="logo">BeerART</h1> 
+        <h2>Arma tu reunion </h2>
       </div>
       <div class='info'> 
   
@@ -43,7 +43,7 @@
         <label for="title">Nombre del Evento</label>
         <input type="text" name="title" id="title" />
 
-        <label for="calidad">Calidad de las bebidas</label>
+        <label for="calidad">Cuanto queres gastar</label>
         <input
           type="number"
           step="1"
@@ -52,7 +52,6 @@
           name="calidad"
           id="calidad"
         />
-
         <label for="num-inv">Cantidad de Invitados</label>
         <input
           type="number"
@@ -70,6 +69,18 @@
           name="cantidad-bebidas"
           id="cantidad-bebidas"
         />
+
+        <!-- <label for="calidad">Que combos quieres</label>
+      
+        <select name="calidad">
+        <option value="1">Muy Economico</option>
+        <option value="2" >Economico</option> 
+        <option value="3"selected>Promedio</option>
+        <option value="4">Calidad</option>
+        <option value="5">Lo mejor</option>
+        </select>
+ -->
+
       </div>
       <div class="modal__actions">
         <button class="btn btn--passive">Cancel</button>
@@ -89,8 +100,11 @@
     </div>
 
     <header>
-      <h1>Como sera tu Evento?</h1>
+      <h1>Si no sabes cuanto pedir te ayudamos</h1>
+      <p>Se calculan vasos de 1/2 litro y botellas por litro</p>
+      
       <button>Arrancar simulador</button>
+      <h1></h1>
     </header>
 
     <main>
