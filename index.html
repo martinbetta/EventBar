@@ -51,7 +51,15 @@
           min="1"
           name="calidad"
           id="calidad"
-        />
+          />
+          <label for="pizza">Que combos quieres</label>
+          <select name="pizza">
+          <option value="1">Muy Economico</option>
+          <option value="2" >Economico</option> 
+          <option value="3"selected>Promedio</option>
+          <option value="4">Calidad</option>
+          <option value="5">Lo mejor</option>
+          </select>
         <label for="num-inv">Cantidad de Invitados</label>
         <input
           type="number"
@@ -70,65 +78,54 @@
           id="cantidad-bebidas"
         />
 
-        <!-- <label for="calidad">Que combos quieres</label>
-      
-        <select name="calidad">
-        <option value="1">Muy Economico</option>
-        <option value="2" >Economico</option> 
-        <option value="3"selected>Promedio</option>
-        <option value="4">Calidad</option>
-        <option value="5">Lo mejor</option>
-        </select>
- -->
+
 
       </div>
       <div class="modal__actions">
-        <button class="btn btn--passive">Cancel</button>
-        <button class="btn btn--success">Add</button>
+        <button class="btn btn--passive">Eliminar</button>
+        <button class="btn btn--success">Agregar</button>
       </div>
     </div>
     <div class="modal card" id="delete-modal">
-      <h2 class="modal__title">Are you sure?</h2>
+      <h2 class="modal__title">Estas seguro?</h2>
       <p class="modal__content">
-        Are you sure you want to delete this item? This action can't be made
-        undone!
+        Estas seguro que queres eliminar el pedido!
       </p>
       <div class="modal__actions">
-        <button class="btn btn--passive">No (Cancel)</button>
-        <button class="btn btn--danger">Yes</button>
+        <button class="btn btn--passive">No (Cancelar)</button>
+        <button class="btn btn--danger">Si</button>
       </div>
     </div>
 
     <header>
-      <h1>Si no sabes cuanto pedir te ayudamos</h1>
-      <p>Se calculan vasos de 1/2 litro y botellas por litro</p>
-      
-      <button>Arrancar simulador</button>
+      <button>Ingresa tu Pedido</button>
       <h1></h1>
     </header>
 
     <main>
       <section id="entry-text" class="card">
-        <p>Simulador de Eventos</p>
+        <p>Ingresa tu pedido y por cantidad mira lo que te podes ahorrar</p>
       </section>
       <ul id="event-list"></ul>
     </main>
 
 
      <div class='variedad'> 
-        <h2 >Nuestras opciones</h2>
+        <h2 >Nuestra variedad de Pizzas y Cervezas</h2>
       </div>
         
       <div class='grid-container'> 
-          <img class = 'grid-item'src="img/cerveza.JPG" alt="cerveza x">
-          <img class = 'grid-item'src="img/ron-bacardi-1-litro_24h.jpg" alt="cerveza x">
-          <img class = 'grid-item'src="img/VODKA_ABSOLUT_70_CL2_1024x1024_24h.jpg" alt="cerveza x">
-          <img class = 'grid-item'src="img/Smirnoff_24h.jpg" alt="cerveza x">
-          <img class = 'grid-item'src="img/bulldog_24h.jpg" alt="cerveza x">
-          <img class = 'grid-item'src="img/cacique-anejo-70-cl_24h.jpg" alt="cerveza x">
-          <img class = 'grid-item'src="img/Tanqueray_24h.jpg" alt="cerveza x">
-          <img class = 'grid-item'src="img/budweiser-lata-33cl_24h.jpg" alt="cerveza x">
+          <img class = 'grid-item'src="img/pizza3.jpg" alt>
+          <img class = 'grid-item'src="img/pizza2.jpg" alt>
+          <img class = 'grid-item'src="img/pizza3.jpg" alt>
+          <img class = 'grid-item'src="img/pizza4.jpg" alt>
+          <img class = 'grid-item'src="img/pizza5.jpg" alt>
+          <img class = 'grid-item'src="img/pizza6.jpg" alt>
+          <img class = 'grid-item'src="img/pizza3.jpg" alt>
+          <img class = 'grid-item'src="img/pizza3.jpg" alt>
       </div>
+
+
       <footer>
         <p>© 2021 EventART 24H - Tienda : Venta de bebidas frias las 24 horas en todo el Pais</p>
       </footer>

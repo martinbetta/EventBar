@@ -1,71 +1,22 @@
-//////////Productos///////////////////
-// class Bebidas {
-//   constructor(nombre, image, litros, precio){
-//  this.nombre = nombre;
-//  this.image = image;
-//  this.litros = Number(litros);
-//  this.precio = precio
-// }
-// }
+////////Productos///////////////////
 
-const Productos = [
-	{
-	id: 1,
-	nombre: 'Ballantines',
-	precio: 1,
-	imagen: 'ballantines-finest-whisky_24h.jpg',
-	litros: 1,
-	},
-	{
-	id: 1,
-	nombre: 'Coca-Cola',
-	precio: 1,
-	imagen: 'bombay-ginebra-70-cl_24h.jpg',
-	litros: 1,
-	},
-	{
-	id: 1,
-	nombre: 'Coca-Cola',
-	precio: 1,
-	imagen: 'bombay-ginebra-70-cl_24h.jpg',
-	litros: 1,
-	},
-	{
-	id: 1,
-	nombre: 'Coca-Cola',
-	precio: 1,
-	imagen: 'bombay-ginebra-70-cl_24h.jpg',
-	litros: 1,
-	},
-	{
-	id: 1,
-	nombre: 'Coca-Cola',
-	precio: 1,
-	imagen: 'bombay-ginebra-70-cl_24h.jpg',
-	litros: 1,
-	},
-	{
-	id: 1,
-	nombre: 'Coca-Cola',
-	precio: 1,
-	imagen: 'bombay-ginebra-70-cl_24h.jpg',
-	litros: 1,
-	},
-	{
-	id: 1,
-	nombre: 'Coca-Cola',
-	precio: 1,
-	imagen: 'bombay-ginebra-70-cl_24h.jpg',
-	litros: 1,
-	},
-	{
-	id: 1,
-	nombre: 'Coca-Cola',
-	precio: 1,
-	imagen: 'bombay-ginebra-70-cl_24h.jpg',
-	litros: 1,
-	},
-]
+
+class Cerveza {
+  constructor(id, nombre, tipo, image, precio, detalle){
+		this.id = id;
+		this.nombre = nombre;
+		this.tipo = tipo;
+		this.image = image;
+		this.precio= Number(precio);
+		this.detalle = detalle;
+}
+}
+//Creacion Pizza////////
+
+//Creacion Cerveza////////
+// const cervezaRubia = new Pizza(6, 'Rubia', '...', 'img/pizza6.jpg', 20);
+
+
 
 
 export {  };

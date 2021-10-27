@@ -4,6 +4,7 @@
 
 html {
   font-family: sans-serif;
+  margin: 3vh;
 }
 
 body {
@@ -33,6 +34,7 @@ header h1 {
 
 header button {
   font: inherit;
+  margin: 0 auto;
   padding: 1rem 10rem 1rem 10rem;
   background: #415cd6;
   border: 1px solid #ebebeb;
@@ -145,8 +147,8 @@ select:focus {
 .modal .modal__title {
   margin: 0;
   padding: 1rem;
-  border-bottom: 1px solid #00329e;
-  background: #00329e;
+  border-bottom: 1px solid #9e000d;
+  background: #9e0008;
   color: white;
   border-radius: 10px 10px 0 0;
 }
@@ -191,7 +193,7 @@ select:focus {
   margin-left: 2rem;
   font: inherit;
   padding: 0.5rem 1rem;
-  background: #415cd6;
+  background: #81ad83;
   border: 1px solid #ebebeb;
   color: white;
   border-radius: 6px;
@@ -364,14 +366,17 @@ select:focus {
 /* Imagenes de bebidas Inicio*/
 .variedad h2{
     color:black;
-    font-family: Montserrat;
+    font-family: 'Bebas Neue', cursive;
+    margin-left:7vh;
+    font-size: 3rem;
+
 }
 .grid-container{
     place-items: center;
     margin-top: 10vh;
     display: grid;
     grid-template-rows: 4fr 4fr;
-    grid-template-columns: 4fr 4fr 4fr 4fr;
+    grid-template-columns: 4fr 4fr 4fr;
     column-gap: 1em;
     row-gap: 2em;
 }
