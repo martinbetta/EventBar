@@ -1,26 +1,37 @@
 // import {  } from './productos';
 
 class Evento {
-  constructor(titulo,calidad,consumiciones,invitados) {
-    this.titulo = titulo;
-    this.invitados = invitados;
-    this.consumiciones = consumiciones;
-    this.calidad = calidad;
+  constructor(nombre, pizza, cantidadPizza, bebida, cantidadBebida, precioTotal, detallePedido) {
     this.id = Math.random().toString();
-    // this.opciones = opciones; 
+    this.nombre = nombre;
+    this.pizza = pizza;
+    this.cantidadPizza = cantidadPizza
+    this.bebida = bebida;
+    this.cantidadBebida = cantidadBebida;
+    this.precioTotal = precioTotal;
+    this.detallePedido = detallePedido;
   }
 
 }
-
-class Pedido {
-  constructor(bebida, cantidad, precio, total){
-    this.id =id 
-    this.bebida =bebida;
-    this.calidad = cantidad;
-    this.precio = precio;
-    this.total = total;
-  }
+class Pizza {
+  constructor(id, nombre, ingredientes, image, precio){
+		this.id = id;
+		this.nombre = nombre;
+		this.ingredientes= ingredientes;
+		this.image = image;
+		this.precio = Number(precio);
 }
+}
+
+/// Creacion de Pizzas
+const creacionPizza = ()=> {
+  const pizzaMuzzarella = new Pizza(1, 'Muzzarella', 'Queso, oregano y aceituna', 'img/pizzaMuzzarella.jpg', 20);
+  const pizzaCalabreza = new Pizza(2, 'Calabreza', 'Calabreza, Muzzarella y aceituna', 'img/pizza2.jpg', 25);
+  const pizzaVegetal = new Pizza(3, 'Vegetal', 'Queso, champignones, Morron Verde, aceituna', 'img/pizza3.jpg', 28);
+  const pizzaAnchoas = new Pizza(4, 'Anchoas', 'Queso, Anchoas y aceituna negra', 'img/pizza5.jpg', 23);
+  const pizzaNapoitana = new Pizza(5, 'Napoitana', 'Queso, Tomate, Cebolla y aceituna', 'img/pizza6.jpg', 20);
+}
+
 
 /// Variables///////
 const addEventModal = document.getElementById('add-modal');
@@ -29,8 +40,8 @@ const startAddEventButton = document.querySelector('header button');
 const backdrop = document.getElementById('backdrop');
 const cancelAddEventButton = addEventModal.querySelector('.btn--passive');
 const confirmAddEventButton = cancelAddEventButton.nextElementSibling;
-const userInputs = addEventModal.querySelectorAll('input');
-const userSelector = addEventModal.querySelectorAll('selector');
+const userInputs = addEventModal.querySelectorAll('input, select');
+// console.log(userInputs);
 
 const entryTextSection = document.getElementById('entry-text')
 const deleteEventModal = document.getElementById('delete-modal');
@@ -79,8 +90,9 @@ const clearEventInputs = () =>{
 const addEventHandler = () =>{
   const titleValue = userInputs[0].value;
   const calidadValue = userInputs[1].value;
-  const cantBebValue = userInputs[2].value;
-  const cantInvValue = userInputs[3].value;
+  let pizzaValue = userInputs[2].value;
+  const cantBebValue = userInputs[3].value;
+  const cantInvValue = userInputs[4].value;
   const id = this.id;
 
   if (titleValue.trim() ==='' || 
@@ -95,7 +107,12 @@ const addEventHandler = () =>{
     alert('Por favor ingresa valores validos')
   return;
   }
-  const cargEvent = new Evento(titleValue, calidadValue, cantBebValue, cantInvValue, id);
+  if (pizzaValue == '1'){
+    pizzaValue = 'barato'
+  }
+
+
+  const cargEvent = new Evento(titleValue, calidadValue, pizzaValue, cantBebValue, cantInvValue, id);
   console.log(cargEvent);
   create(cargEvent)
   closeEventModal();
@@ -145,7 +162,7 @@ const deleteEvent = (eventId) =>{
   eventos.splice(identifyId, 1);
   localStorage.setItem('eventos', JSON.stringify(eventos));
   const listEvents = document.getElementById('event-list');
-  console.log(identifyId);
+  // console.log(identifyId);
   listEvents.children[identifyId].remove();
   cancelEventDelete();
 
@@ -169,9 +186,11 @@ const deleteEventHandler = (eventId) =>{
   confirmDeleteButton.addEventListener('click', deleteEvent.bind(null, eventId));
 //  deleteEvent (eventId);
 };
+
+/////////ACA ES DONDE INGRESO EN EL DOM///////////////////////////
 const renderNewEventElem = () =>{
   for (let event of eventos) {
-  console.log(event)
+  // console.log(event)
   const newEventElement = document.createElement('li');
   newEventElement.className = 'event-element';
   newEventElement.innerHTML = `
@@ -179,6 +198,7 @@ const renderNewEventElem = () =>{
    
     <h2>El titulo del evento es: ${event.titulo}  <button id='delete-Button'> Eliminar </button> </h2> 
     <p>La calidad seleccionada es ${event.calidad}</p> <br>
+    <p>La pizza es ${event.pizza}</p> <br>
     <p> Cantidad de consumiciones ${event.consumiciones}</p> <br>
     <p>Total invitados ${event.invitados}</p> <br>
     <p>Total consumiciones ${event.consumiciones*event.invitados}
@@ -204,3 +224,5 @@ startAddEventButton.addEventListener('click', showEventModal);
 backdrop.addEventListener('click',backdropClickHandler); // Este listener sirve para que cuando haga click en el fondo gris s cierre el form
 cancelAddEventButton.addEventListener('click',cancelAddEventHandler);
 confirmAddEventButton.addEventListener('click',addEventHandler);
+
+ 
