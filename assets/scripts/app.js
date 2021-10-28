@@ -2,7 +2,6 @@
 
 class Evento {
   constructor(nombre, pizza, cantidadPizza, bebida, cantidadBebida, precioTotal, detallePedido) {
-    this.id = Math.random().toString();
     this.nombre = nombre;
     this.pizza = pizza;
     this.cantidadPizza = cantidadPizza
@@ -10,11 +9,13 @@ class Evento {
     this.cantidadBebida = cantidadBebida;
     this.precioTotal = precioTotal;
     this.detallePedido = detallePedido;
+    this.id = Math.random().toString();
   }
 
 }
 class Pizza {
   constructor(id, nombre, ingredientes, image, precio){
+
 		this.id = id;
 		this.nombre = nombre;
 		this.ingredientes= ingredientes;
@@ -24,13 +25,68 @@ class Pizza {
 }
 
 /// Creacion de Pizzas
-const creacionPizza = ()=> {
-  const pizzaMuzzarella = new Pizza(1, 'Muzzarella', 'Queso, oregano y aceituna', 'img/pizzaMuzzarella.jpg', 20);
+
+  const pizzaMuzzarella = new Pizza(1, 'Muzzarella', 'Queso, oregano y aceituna', 'img/pizza1.jpg', 20);
   const pizzaCalabreza = new Pizza(2, 'Calabreza', 'Calabreza, Muzzarella y aceituna', 'img/pizza2.jpg', 25);
   const pizzaVegetal = new Pizza(3, 'Vegetal', 'Queso, champignones, Morron Verde, aceituna', 'img/pizza3.jpg', 28);
-  const pizzaAnchoas = new Pizza(4, 'Anchoas', 'Queso, Anchoas y aceituna negra', 'img/pizza5.jpg', 23);
-  const pizzaNapoitana = new Pizza(5, 'Napoitana', 'Queso, Tomate, Cebolla y aceituna', 'img/pizza6.jpg', 20);
-}
+  const pizzaCebolla = new Pizza(4, 'cebolla', 'Mucha Cebolla, Queso, aceituna', 'img/pizza4.jpg', 28);
+  const pizzaAnchoas = new Pizza(5, 'Anchoas', 'Queso, Anchoas y aceituna negra', 'img/pizza5.jpg', 23);
+  const pizzaNapolitana = new Pizza(6, 'Napolitana', 'Queso, Tomate, Cebolla y aceituna', 'img/pizza6.jpg', 20);
+
+  console.log(pizzaMuzzarella.image);
+
+
+  const gallery =document.getElementById('gallery');
+  const gridContainer = document.getElementById('grid-container');
+  // const selectedImages = document.getElementById('selectedImage');
+  const imageIndexes = [1,2,3,4,5,6];
+  const selectedIndex = null;
+
+  // imageIndexes.forEach((i) =>{
+  //   const image = document.createElement('img');
+  //   image.classList.add('grid-item');
+  //   // image.src = `img/pizza${i}.jpg`
+  //   image.src = `img/pizza${i}.jpg`
+  //   gridContainer.appendChild(image);
+  // });
+/// 
+
+  const imageMussa = document.createElement('img');
+  imageMussa.classList.add('grid-item');
+  imageMussa.src = `${pizzaMuzzarella.image}`
+  imageMussa.alt = `${pizzaMuzzarella.nombre}`
+  gridContainer.appendChild(imageMussa);
+
+
+  const imageCalabreza = document.createElement('img');
+  imageCalabreza.classList.add('grid-item');
+  imageCalabreza.src = `${pizzaCalabreza.image}`
+  imageCalabreza.alt = `${pizzaCalabreza.nombre}`
+  gridContainer.appendChild(imageCalabreza);
+
+  const imageVegetal = document.createElement('img');
+  imageVegetal.classList.add('grid-item');
+  imageVegetal.src = `${pizzaVegetal.image}`
+  imageVegetal.alt = `${pizzaVegetal.nombre}`
+  gridContainer.appendChild(imageVegetal);
+
+  const imageCebolla = document.createElement('img');
+  imageCebolla.classList.add('grid-item');
+  imageCebolla.src = `${pizzaCebolla.image}`
+  imageCebolla.alt = `${pizzaCebolla.nombre}`
+  gridContainer.appendChild(imageCebolla);
+
+  const imageAnchoas = document.createElement('img');
+  imageAnchoas.classList.add('grid-item');
+  imageAnchoas.src = `${pizzaAnchoas.image}`
+  imageAnchoas.alt = `${pizzaAnchoas.nombre}`
+  gridContainer.appendChild(imageAnchoas);
+
+  const imageNapo = document.createElement('img');
+  imageNapo.classList.add('grid-item');
+  imageNapo.src = `${pizzaNapolitana.image}`
+  imageNapo.alt = `${pizzaNapolitana.nombre}`
+  gridContainer.appendChild(imageNapo);
 
 
 /// Variables///////
@@ -45,9 +101,6 @@ const userInputs = addEventModal.querySelectorAll('input, select');
 
 const entryTextSection = document.getElementById('entry-text')
 const deleteEventModal = document.getElementById('delete-modal');
-
-
-
 
 
 /// Funciones ///////
@@ -87,32 +140,34 @@ const clearEventInputs = () =>{
   }
 }
 /// VALIDADOR DE LOS INPUT y Creacion del Objeto/////////////
-const addEventHandler = () =>{
-  const titleValue = userInputs[0].value;
-  const calidadValue = userInputs[1].value;
-  let pizzaValue = userInputs[2].value;
-  const cantBebValue = userInputs[3].value;
-  const cantInvValue = userInputs[4].value;
-  const id = this.id;
 
-  if (titleValue.trim() ==='' || 
-    +calidadValue.trim() ==='' || 
-    +calidadValue.trim() <1  || 
-    +calidadValue.trim() >11  || 
-    +cantBebValue.trim() ==='' ||
-    +cantBebValue.trim() <1 ||
-    +cantInvValue.trim() ===''||
-    +cantInvValue.trim() <1
-    ){
-    alert('Por favor ingresa valores validos')
+
+
+const addEventHandler = () => {
+  const nombreValue = userInputs[0].value;
+  let pizzaValue = userInputs[1].value;
+  const cantidadPizzaValue = userInputs[2].value;
+  const bebidaValue = userInputs[3].value;
+  const cantidadBebValue = userInputs[4].value;
+  const precioTotalValue = 0
+  const detalleValue = userInputs[5].value;
+  const id = this.id;
+  
+  if (nombreValue.trim() === '' ||
+    pizzaValue.trim() === '' ||
+    +cantidadPizzaValue.trim() < 0 ||
+    bebidaValue.trim() === '' ||
+    +cantidadBebValue.trim() < 0 ||
+    // +precioTotalValue.trim() < 0 ||
+    detalleValue.trim() === ''
+    ) {
+    alert('Por favor ingresa valores validos');
   return;
   }
-  if (pizzaValue == '1'){
-    pizzaValue = 'barato'
-  }
+  
 
 
-  const cargEvent = new Evento(titleValue, calidadValue, pizzaValue, cantBebValue, cantInvValue, id);
+  const cargEvent = new Evento(nombreValue, pizzaValue, cantidadPizzaValue, bebidaValue, cantidadBebValue, precioTotalValue ,detalleValue, id);
   console.log(cargEvent);
   create(cargEvent)
   closeEventModal();
@@ -190,19 +245,19 @@ const deleteEventHandler = (eventId) =>{
 /////////ACA ES DONDE INGRESO EN EL DOM///////////////////////////
 const renderNewEventElem = () =>{
   for (let event of eventos) {
-  // console.log(event)
+  console.log(event)
   const newEventElement = document.createElement('li');
   newEventElement.className = 'event-element';
   newEventElement.innerHTML = `
   <div class="event-element__info">
    
-    <h2>El titulo del evento es: ${event.titulo}  <button id='delete-Button'> Eliminar </button> </h2> 
-    <p>La calidad seleccionada es ${event.calidad}</p> <br>
-    <p>La pizza es ${event.pizza}</p> <br>
-    <p> Cantidad de consumiciones ${event.consumiciones}</p> <br>
-    <p>Total invitados ${event.invitados}</p> <br>
-    <p>Total consumiciones ${event.consumiciones*event.invitados}
+    <h2>El pedido a Nombre de: ${event.nombre}  <button id='delete-Button'> Eliminar </button> </h2> 
+    <p>Pidio ${event.cantidadPizza} de ${event.pizza}</p> <br>
+    <p> Para tomar ${event.cantidadBebida} ${event.bebida}</p> <br>
+    <p>El precio total es de ${event.precioTotal}</p> <br>
+    <p>El detalle del pedido es:  ${event.detallePedido}
     </div>`;
+    console.log(newEventElement)
   
     // newEventElement.addEventListener('click', printId.bind(null,eventos)) // PRUEBA PARA VER SI ME TRAE ID..
     

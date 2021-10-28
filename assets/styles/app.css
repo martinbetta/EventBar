@@ -371,7 +371,7 @@ select:focus {
     font-size: 3rem;
 
 }
-.grid-container{
+#grid-container{
     place-items: center;
     margin-top: 10vh;
     display: grid;

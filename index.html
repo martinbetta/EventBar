@@ -22,7 +22,7 @@
       <div class='info'> 
   
         <i class="fas fa-phone"></i> +555 525225 | <i class="fas fa-envelope"></i> ventas |
-        Seguinos en <i class="fab fa-facebook-square"> | Facebook</i> | <i class="fab fa-instagram-square"></i> Instagram
+        Seguinos<i class="fab fa-facebook-square"> | Facebook</i> | <i class="fab fa-instagram-square"></i> Instagram
  
       </div>
     </div>
@@ -40,10 +40,19 @@
     <div class="modal card" id="add-modal">
       <div class="modal__content">
        
-        <label for="title">Nombre del Evento</label>
+        <label for="title">Tu Nombre Completo</label>
         <input type="text" name="title" id="title" />
-
-        <label for="calidad">Cuanto queres gastar</label>
+        
+        <label for="pizza">Que Pizza quieres</label>
+        <select name="pizza">
+        <option value="1"selected>Muzzarella</option>
+        <option value="2" >Calabreza</option> 
+        <option value="3">Vegetal</option>
+        <option value="4">Cebolla</option>
+        <option value="5">Anchoas</option>
+        <option value="6">Napolitana</option>
+        </select>
+        <label for="cantidad Pizzas">cuantas Pizzas</label>
         <input
           type="number"
           step="1"
@@ -52,24 +61,10 @@
           name="calidad"
           id="calidad"
           />
-          <label for="pizza">Que combos quieres</label>
-          <select name="pizza">
-          <option value="1">Muy Economico</option>
-          <option value="2" >Economico</option> 
-          <option value="3"selected>Promedio</option>
-          <option value="4">Calidad</option>
-          <option value="5">Lo mejor</option>
-          </select>
-        <label for="num-inv">Cantidad de Invitados</label>
-        <input
-          type="number"
-          step="1"
-          min="1"
-          name="num-inv"
-          id="num-inv"
-        />
-
-        <label for="cantidad-bebidas">Cantidad de Bebidas por Invitado</label>
+          <label for="title">Para Tomar</label>
+          <input type="text" name="title" id="title" />
+          
+        <label for="cantidad-bebidas">Cantidad de Bebidas</label>
         <input
           type="number"
           step="1"
@@ -77,7 +72,8 @@
           name="cantidad-bebidas"
           id="cantidad-bebidas"
         />
-
+        <label for="detalle">A donde lo enviamos?, algun pedido especial?</label>
+        <input type="text" name="detalle" id="detalle" />
 
 
       </div>
@@ -112,17 +108,11 @@
 
      <div class='variedad'> 
         <h2 >Nuestra variedad de Pizzas y Cervezas</h2>
+        <div id='galery'> </div>
       </div>
         
-      <div class='grid-container'> 
-          <img class = 'grid-item'src="img/pizza3.jpg" alt>
-          <img class = 'grid-item'src="img/pizza2.jpg" alt>
-          <img class = 'grid-item'src="img/pizza3.jpg" alt>
-          <img class = 'grid-item'src="img/pizza4.jpg" alt>
-          <img class = 'grid-item'src="img/pizza5.jpg" alt>
-          <img class = 'grid-item'src="img/pizza6.jpg" alt>
-          <img class = 'grid-item'src="img/pizza3.jpg" alt>
-          <img class = 'grid-item'src="img/pizza3.jpg" alt>
+      <div id='grid-container'> 
+  
       </div>
 
 
