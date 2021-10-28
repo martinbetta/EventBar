@@ -24,13 +24,80 @@ class Pizza {
 }
 
 /// Creacion de Pizzas
-const creacionPizza = ()=> {
-  const pizzaMuzzarella = new Pizza(1, 'Muzzarella', 'Queso, oregano y aceituna', 'img/pizzaMuzzarella.jpg', 20);
+
+  const pizzaMuzzarella = new Pizza(1, 'Muzzarella', 'Queso, oregano y aceituna', 'img/pizza1.jpg', 20);
   const pizzaCalabreza = new Pizza(2, 'Calabreza', 'Calabreza, Muzzarella y aceituna', 'img/pizza2.jpg', 25);
   const pizzaVegetal = new Pizza(3, 'Vegetal', 'Queso, champignones, Morron Verde, aceituna', 'img/pizza3.jpg', 28);
+  const pizzaCebolla = new Pizza(3, 'cebolla', 'Mucha Cebolla, Queso, aceituna', 'img/pizza4.jpg', 28);
   const pizzaAnchoas = new Pizza(4, 'Anchoas', 'Queso, Anchoas y aceituna negra', 'img/pizza5.jpg', 23);
-  const pizzaNapoitana = new Pizza(5, 'Napoitana', 'Queso, Tomate, Cebolla y aceituna', 'img/pizza6.jpg', 20);
-}
+  const pizzaNapoitana = new Pizza(5, 'Napolitana', 'Queso, Tomate, Cebolla y aceituna', 'img/pizza6.jpg', 20);
+
+  console.log(pizzaMuzzarella.image);
+
+
+  const gallery =document.getElementById('gallery');
+  const gridContainer = document.getElementById('grid-container');
+  // const selectedImages = document.getElementById('selectedImage');
+  const imageIndexes = [1,2,3,4,5,6];
+  const selectedIndex = null;
+
+  // imageIndexes.forEach((i) =>{
+  //   const image = document.createElement('img');
+  //   image.classList.add('grid-item');
+  //   // image.src = `img/pizza${i}.jpg`
+  //   image.src = `img/pizza${i}.jpg`
+  //   gridContainer.appendChild(image);
+  // });
+///// 
+  const imageMussa = document.createElement('img');
+  imageMussa.classList.add('grid-item');
+  imageMussa.src = `${pizzaMuzzarella.image}`
+  gridContainer.appendChild(imageMussa);
+
+  const imageCalabreza = document.createElement('img');
+  imageCalabreza.classList.add('grid-item');
+  imageCalabreza.src = `${pizzaCalabreza.image}`
+  gridContainer.appendChild(imageCalabreza);
+
+  const imageVegetal = document.createElement('img');
+  imageVegetal.classList.add('grid-item');
+  imageVegetal.src = `${pizzaVegetal.image}`
+  gridContainer.appendChild(imageVegetal);
+
+  const imageCebolla = document.createElement('img');
+  imageCebolla.classList.add('grid-item');
+  imageCebolla.src = `${pizzaCebolla.image}`
+  gridContainer.appendChild(imageCebolla);
+
+  const imageAnchoas = document.createElement('img');
+  imageAnchoas.classList.add('grid-item');
+  imageAnchoas.src = `${pizzaAnchoas.image}`
+  gridContainer.appendChild(imageAnchoas);
+
+  const imageNapo = document.createElement('img');
+  imageNapo.classList.add('grid-item');
+  imageNapo.src = `${pizzaNapoitana.image}`
+  gridContainer.appendChild(imageNapo);
+
+
+
+
+
+
+
+  // renderPizzas= () =>{
+  //   // <img class = 'grid-item'src="img/pizza3.jpg" alt></img>
+  //   const newEventElementPizzza = document.createElement('img');
+  //   newEventElementPizzza.className = 'grid-item';
+  //   const img = document.querySelector('img');
+  //   // img.src = "img/pizza2.jpg";
+  //   img["src"] = "img/pizza2.jpg";
+  //   const pizzaElemen = document.getElementById('grid-container');
+  //   pizzaElemen.append(newEventElementPizzza);
+  //   newEventElementPizzza.innerHTML = `${pizzaCalabreza.nombre}`;
+  //   console.log(newEventElementPizzza);
+  // }
+  // renderPizzas();
 
 
 /// Variables///////
@@ -190,7 +257,7 @@ const deleteEventHandler = (eventId) =>{
 /////////ACA ES DONDE INGRESO EN EL DOM///////////////////////////
 const renderNewEventElem = () =>{
   for (let event of eventos) {
-  // console.log(event)
+  console.log(event)
   const newEventElement = document.createElement('li');
   newEventElement.className = 'event-element';
   newEventElement.innerHTML = `
@@ -203,6 +270,7 @@ const renderNewEventElem = () =>{
     <p>Total invitados ${event.invitados}</p> <br>
     <p>Total consumiciones ${event.consumiciones*event.invitados}
     </div>`;
+    console.log(newEventElement)
   
     // newEventElement.addEventListener('click', printId.bind(null,eventos)) // PRUEBA PARA VER SI ME TRAE ID..
     
