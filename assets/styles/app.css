@@ -134,7 +134,7 @@ select:focus {
   position: fixed; 
   z-index: 100;
   width: 80%;
-  top: 30vh;
+  top: 8vh;
   left: 10%;
   display: none;
 }
@@ -155,6 +155,7 @@ select:focus {
 
 .modal .modal__content {
   padding: 1rem;
+
 }
 
 .modal .modal__actions {
@@ -380,12 +381,32 @@ select:focus {
     column-gap: 1em;
     row-gap: 2em;
 }
+
+
+
+
+
+.products-items{
+  height: 100%;
+  background-color: #e4cfb7;
+  padding: 1rem;
+  box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
+  border-radius: 10%;
+
+}
+.products-items p{
+  height: 20%;
+}
+
+.products-items img{
+  height: 100%;
+}
+
 .grid-item{
     /* border: 2px solid #000; */
     width: 100%;
     box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
     border-radius: 10%;
-    height: 100%;
 }
 
 /* FIN Imagenes de bebidas Inicio*/
@@ -398,3 +419,8 @@ footer p {
     color:black;
 }
 
+.ingredientes{
+  grid-template-rows: 4fr 4fr;
+  grid-template-columns: 4fr 4fr 4fr;
+  padding: 1rem;
+}

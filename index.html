@@ -40,17 +40,19 @@
     <div class="modal card" id="add-modal">
       <div class="modal__content">
        
-        <label for="title">Tu Nombre Completo</label>
+        <label for="title">Nombre de tu Pizza</label>
         <input type="text" name="title" id="title" />
         
         <label for="pizza">Que Pizza quieres</label>
-        <select name="pizza">
-        <option value="1"selected>Muzzarella</option>
-        <option value="2" >Calabreza</option> 
-        <option value="3">Vegetal</option>
-        <option value="4">Cebolla</option>
-        <option value="5">Anchoas</option>
-        <option value="6">Napolitana</option>
+        <select name="pizza" multiple>
+        <option value="Muzzarella"name ='Muzzarella' selected>Muzzarella</option>
+        <option value="Tomate" name ='Tomate'>Tomate</option> 
+        <option value="Espinaca" name ='Espinaca'>Espinaca</option>
+        <option value="Cebolla" name ='Cebolla'>Cebolla</option>
+        <option value="Roqueford" name ='Roqueford'>Roqueford</option>
+        <option value="Brie" name ='Brie'>Brie</option>
+        <option value="Ajo Negro" name ='Ajo Negro'>Ajo Negro</option>
+        <option value="Palmitos" name ='Palmitos'>Palmitos</option>
         </select>
         <label for="cantidad Pizzas">cuantas Pizzas</label>
         <input
@@ -61,17 +63,10 @@
           name="calidad"
           id="calidad"
           />
-          <label for="title">Para Tomar</label>
-          <input type="text" name="title" id="title" />
-          
-        <label for="cantidad-bebidas">Cantidad de Bebidas</label>
-        <input
-          type="number"
-          step="1"
-          min="1"
-          name="cantidad-bebidas"
-          id="cantidad-bebidas"
-        />
+      
+          <label for="extratext">Algo mas para agregarle?</label>
+
+        <textarea id="w3review" name="w3review" rows="4" cols="50"></textarea>
         <label for="detalle">A donde lo enviamos?, algun pedido especial?</label>
         <input type="text" name="detalle" id="detalle" />
 
@@ -94,13 +89,13 @@
     </div>
 
     <header>
-      <button>Ingresa tu Pedido</button>
+      <button>Arma tu Propia Pizza</button>
       <h1></h1>
     </header>
 
     <main>
       <section id="entry-text" class="card">
-        <p>Ingresa tu pedido y por cantidad mira lo que te podes ahorrar</p>
+        <p>Si no tenemos la pizza que queres podes armar la tuya</p>
       </section>
       <ul id="event-list"></ul>
     </main>
@@ -109,12 +104,10 @@
      <div class='variedad'> 
         <h2 >Nuestra variedad de Pizzas y Cervezas</h2>
         <div id='galery'> </div>
-      </div>
-        
+      </div> 
       <div id='grid-container'> 
   
       </div>
-
 
       <footer>
         <p>© 2021 EventART 24H - Tienda : Venta de bebidas frias las 24 horas en todo el Pais</p>

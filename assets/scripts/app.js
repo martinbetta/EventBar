@@ -1,14 +1,12 @@
 // import {  } from './productos';
 
 class Evento {
-  constructor(nombre, pizza, cantidadPizza, bebida, cantidadBebida, precioTotal, detallePedido) {
+  constructor(nombre, pizza, cantidadPizza, detalle, envio) {
     this.nombre = nombre;
     this.pizza = pizza;
     this.cantidadPizza = cantidadPizza
-    this.bebida = bebida;
-    this.cantidadBebida = cantidadBebida;
-    this.precioTotal = precioTotal;
-    this.detallePedido = detallePedido;
+    this.detalle = detalle;
+    this.envio = envio;
     this.id = Math.random().toString();
   }
 
@@ -33,7 +31,9 @@ class Pizza {
   const pizzaAnchoas = new Pizza(5, 'Anchoas', 'Queso, Anchoas y aceituna negra', 'img/pizza5.jpg', 23);
   const pizzaNapolitana = new Pizza(6, 'Napolitana', 'Queso, Tomate, Cebolla y aceituna', 'img/pizza6.jpg', 20);
 
-  console.log(pizzaMuzzarella.image);
+  const pizzas= [pizzaMuzzarella, pizzaCalabreza, pizzaVegetal, pizzaCebolla, pizzaAnchoas, pizzaNapolitana];
+  //Creo Carrito
+  const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
 
   const gallery =document.getElementById('gallery');
@@ -42,51 +42,51 @@ class Pizza {
   const imageIndexes = [1,2,3,4,5,6];
   const selectedIndex = null;
 
-  // imageIndexes.forEach((i) =>{
-  //   const image = document.createElement('img');
-  //   image.classList.add('grid-item');
-  //   // image.src = `img/pizza${i}.jpg`
-  //   image.src = `img/pizza${i}.jpg`
-  //   gridContainer.appendChild(image);
-  // });
-/// 
+let acumulador = '';
+// Pizzas en el HTML
+for (let i = 0; i <pizzas.length;i++){
+  const pizza=pizzas[i]
+  acumulador += `
+  <div class = 'products-items'>
+  <div>
+  <img class = "grid-item imgProd" src="${pizza.image}" alt="${pizza.nombre}">
+  <div class = 'body-images' >
+  <p class = 'pizzaNom'>${pizza.nombre}</p>
+  <p class = 'pizzaIng'>${pizza.ingredientes}</p>
+  <p class = 'pizzaPrec'>ARS ${pizza.precio}</p>
+  <button data-id="${pizza.id}" class = "boton-carrito agregar-carrito">Agregar </button>
+  </div>
+  </div>
+  </div>
+  `
+}
+gridContainer.innerHTML = acumulador;
 
-  const imageMussa = document.createElement('img');
-  imageMussa.classList.add('grid-item');
-  imageMussa.src = `${pizzaMuzzarella.image}`
-  imageMussa.alt = `${pizzaMuzzarella.nombre}`
-  gridContainer.appendChild(imageMussa);
+if (gridContainer) {gridContainer.addEventListener('click', agregarCarro);}
+function agregarCarro(e) {
+  e.preventDefault();
+  if (e.target.classList.contains('agregar-carrito')){
+    const pizzaSeleccionada = e.target.parentNode; //  para que seleccione el Boton y agarre el nodo completo
+    console.log(pizzaSeleccionada)
+    seleccion(pizzaSeleccionada)
+  }
+}
+// ACA ES DONDE INTENTO ENCAPSULAR LOS DATOS DEL ARTICULO EN EL BOTON. 
+function seleccion (pizzaSelect) {
+    const datosPizza = {
+    nombre: pizzaSelect.querySelector(".pizzaNom").textContent,
+    precio: pizzaSelect.querySelector(".pizzaPrec").textContent,
+    ingredientes: pizzaSelect.querySelector(".pizzaIng").textContent,
+    img: pizzaSelect.parentNode.querySelector('.imgProd').src
+  };
+  console.log(datosPizza);
+  carrito.push(datosPizza);
+  saveStorage()
+}
 
-
-  const imageCalabreza = document.createElement('img');
-  imageCalabreza.classList.add('grid-item');
-  imageCalabreza.src = `${pizzaCalabreza.image}`
-  imageCalabreza.alt = `${pizzaCalabreza.nombre}`
-  gridContainer.appendChild(imageCalabreza);
-
-  const imageVegetal = document.createElement('img');
-  imageVegetal.classList.add('grid-item');
-  imageVegetal.src = `${pizzaVegetal.image}`
-  imageVegetal.alt = `${pizzaVegetal.nombre}`
-  gridContainer.appendChild(imageVegetal);
-
-  const imageCebolla = document.createElement('img');
-  imageCebolla.classList.add('grid-item');
-  imageCebolla.src = `${pizzaCebolla.image}`
-  imageCebolla.alt = `${pizzaCebolla.nombre}`
-  gridContainer.appendChild(imageCebolla);
-
-  const imageAnchoas = document.createElement('img');
-  imageAnchoas.classList.add('grid-item');
-  imageAnchoas.src = `${pizzaAnchoas.image}`
-  imageAnchoas.alt = `${pizzaAnchoas.nombre}`
-  gridContainer.appendChild(imageAnchoas);
-
-  const imageNapo = document.createElement('img');
-  imageNapo.classList.add('grid-item');
-  imageNapo.src = `${pizzaNapolitana.image}`
-  imageNapo.alt = `${pizzaNapolitana.nombre}`
-  gridContainer.appendChild(imageNapo);
+function saveStorage(){
+  localStorage.setItem('carrito', JSON.stringify(carrito));
+}
 
 
 /// Variables///////
@@ -96,12 +96,38 @@ const startAddEventButton = document.querySelector('header button');
 const backdrop = document.getElementById('backdrop');
 const cancelAddEventButton = addEventModal.querySelector('.btn--passive');
 const confirmAddEventButton = cancelAddEventButton.nextElementSibling;
-const userInputs = addEventModal.querySelectorAll('input, select');
-// console.log(userInputs);
+const userInputs = addEventModal.querySelectorAll('input, textarea, select');
+console.log(userInputs);
 
 const entryTextSection = document.getElementById('entry-text')
 const deleteEventModal = document.getElementById('delete-modal');
 
+
+
+
+// function optionalfee() {
+//   let total = 0;
+//   // get the checked boxes only
+ 
+//   for (var i = 0; i < checks.length; ++i) {
+//     let check = checks[i];
+//     // find the ID of the input to use
+//     let input = document.getElementById(check.getAttribute("data-id"));
+//     let val = input.value;
+//     // handle poor or no input - is in principle already handled by the type="number"
+//     let = (isNaN(val) || "" === val.trim()) ? 0 : parseFloat(val);
+//     total += val;
+//   }
+//   document.getElementById('toptional').value = total;
+// }
+// window.onload = function() {
+//   let checks = document.querySelectorAll(".optional"),
+//     fees = document.querySelectorAll(".fee");
+//   for (var i = 0; i < checks.length; i++) {
+//     checks[i].onclick = optionalfee;
+//     fees[i].oninput = optionalfee;
+//   }
+// }
 
 /// Funciones ///////
 const updateListEvent = () => {
@@ -147,27 +173,40 @@ const addEventHandler = () => {
   const nombreValue = userInputs[0].value;
   let pizzaValue = userInputs[1].value;
   const cantidadPizzaValue = userInputs[2].value;
-  const bebidaValue = userInputs[3].value;
-  const cantidadBebValue = userInputs[4].value;
-  const precioTotalValue = 0
-  const detalleValue = userInputs[5].value;
+  const detalleValue = userInputs[3].value;
+  const envio = userInputs[4].value;
   const id = this.id;
   
-  if (nombreValue.trim() === '' ||
-    pizzaValue.trim() === '' ||
-    +cantidadPizzaValue.trim() < 0 ||
-    bebidaValue.trim() === '' ||
-    +cantidadBebValue.trim() < 0 ||
-    // +precioTotalValue.trim() < 0 ||
-    detalleValue.trim() === ''
-    ) {
-    alert('Por favor ingresa valores validos');
-  return;
-  }
+  // if (nombreValue.trim() === '' ||
+  //   +cantidadPizzaValue.trim() < 0 ||
+  //   bebidaValue.trim() === '' ||
+  //   +cantidadBebValue.trim() < 0 ||
+  //   // +precioTotalValue.trim() < 0 ||
+  //   detalleValue.trim() === ''
+  //   ) {
+  //   alert('Por favor ingresa valores validos');
+  // return;
+  // }
   
 
 
-  const cargEvent = new Evento(nombreValue, pizzaValue, cantidadPizzaValue, bebidaValue, cantidadBebValue, precioTotalValue ,detalleValue, id);
+  // if (pizzaValue == 1){
+  //   pizzaValue = 'Muzzarella'
+  // }else if (pizzaValue == 2){
+  //   pizzaValue = 
+  // } else if (pizzaValue == 3){
+  //   pizzaValue = pizzaVegetal.nombre
+  // } else if (pizzaValue == 4){
+  //   pizzaValue = pizzaCebolla.nombre
+  // } else if (pizzaValue == 5){
+  //   pizzaValue = pizzaAnchoas.nombre
+  // } else if (pizzaValue === 6){
+  //   pizzaValue = pizzaNapolitana.nombre
+  // }
+
+
+
+  const cargEvent = new Evento(nombreValue, pizzaValue, cantidadPizzaValue, detalleValue, envio, id);
   console.log(cargEvent);
   create(cargEvent)
   closeEventModal();
@@ -245,19 +284,20 @@ const deleteEventHandler = (eventId) =>{
 /////////ACA ES DONDE INGRESO EN EL DOM///////////////////////////
 const renderNewEventElem = () =>{
   for (let event of eventos) {
-  console.log(event)
+  // console.log(event)
+
+  
   const newEventElement = document.createElement('li');
   newEventElement.className = 'event-element';
   newEventElement.innerHTML = `
   <div class="event-element__info">
    
     <h2>El pedido a Nombre de: ${event.nombre}  <button id='delete-Button'> Eliminar </button> </h2> 
-    <p>Pidio ${event.cantidadPizza} de ${event.pizza}</p> <br>
-    <p> Para tomar ${event.cantidadBebida} ${event.bebida}</p> <br>
-    <p>El precio total es de ${event.precioTotal}</p> <br>
-    <p>El detalle del pedido es:  ${event.detallePedido}
+    <p>Pidio ${event.cantidadPizza} pizza/s de ${event.pizza}</p> <br>
+    <p>Pedido extra :  ${event.detalle}</p>
+    <p>El detalle del pedido es:  ${event.envio}
     </div>`;
-    console.log(newEventElement)
+    // console.log(newEventElement)
   
     // newEventElement.addEventListener('click', printId.bind(null,eventos)) // PRUEBA PARA VER SI ME TRAE ID..
     
@@ -280,4 +320,5 @@ backdrop.addEventListener('click',backdropClickHandler); // Este listener sirve 
 cancelAddEventButton.addEventListener('click',cancelAddEventHandler);
 confirmAddEventButton.addEventListener('click',addEventHandler);
 
- 
+
+
