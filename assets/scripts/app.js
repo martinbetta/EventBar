@@ -51,9 +51,9 @@ for (let i = 0; i <pizzas.length;i++){
   <div>
   <img class = "grid-item imgProd" src="${pizza.image}" alt="${pizza.nombre}">
   <div class = 'body-images' >
-  <p class = 'pizzaNom'>${pizza.nombre}</p>
-  <p class = 'pizzaIng'>${pizza.ingredientes}</p>
-  <p class = 'pizzaPrec'>ARS ${pizza.precio}</p>
+  <p class = 'pizzaNom' id="">${pizza.nombre}</p>
+  <p class = 'pizzaIng' id="">${pizza.ingredientes}</p>
+  <p class = 'pizzaPrec' id="">ARS ${pizza.precio}</p>
   <button data-id="${pizza.id}" class = "boton-carrito agregar-carrito">Agregar </button>
   </div>
   </div>
@@ -63,6 +63,7 @@ for (let i = 0; i <pizzas.length;i++){
 gridContainer.innerHTML = acumulador;
 
 if (gridContainer) {gridContainer.addEventListener('click', agregarCarro);}
+
 function agregarCarro(e) {
   e.preventDefault();
   if (e.target.classList.contains('agregar-carrito')){
@@ -81,7 +82,8 @@ function seleccion (pizzaSelect) {
   };
   console.log(datosPizza);
   carrito.push(datosPizza);
-  saveStorage()
+  saveStorage();
+  console.log(carrito) // TODO OK HASTA ACA.. 
 }
 
 function saveStorage(){
@@ -89,6 +91,48 @@ function saveStorage(){
 }
 
 
+// carro de compras 
+
+const contenedorCarrito = document.querySelector("#carrito");
+const mostrarCarrito = document.querySelector("#mostrar-carrito");
+
+if (mostrarCarrito){
+    mostrarCarrito.addEventListener('click', mostrarElCarrito)
+}
+function mostrarElCarrito(){
+  if (localStorage.length === 0){
+    const msgInicial= document.createElement("h2")
+    msgInicial.innerHTML= "EL CARRITO ESTA VACIO"
+    contenedorCarrito.appendChild(msgInicial);
+  } else {
+    renderizarCarrito()
+  }
+
+}
+function renderizarCarrito(){
+  limpiarCarrito()
+  carrito.forEach(pizza => {
+    const row = document.createElement('div');
+    row.classList.add('row')
+    row.innerHTML+= `
+      <div class= 'col'>
+   
+        </div>
+        <div class = "col">
+          <h4 class ="">${pizza.nombre}</h4> 
+          <h6 class ="">${pizza.precio}</h6>
+          </div>
+          <hr/>
+        `
+        contenedorCarrito.appendChild(row)
+  })
+}
+
+function limpiarCarrito(){
+  while (contenedorCarrito.firstChild){
+    contenedorCarrito.removeChild(contenedorCarrito.firstChild)
+  }
+}
 /// Variables///////
 const addEventModal = document.getElementById('add-modal');
 
@@ -97,7 +141,7 @@ const backdrop = document.getElementById('backdrop');
 const cancelAddEventButton = addEventModal.querySelector('.btn--passive');
 const confirmAddEventButton = cancelAddEventButton.nextElementSibling;
 const userInputs = addEventModal.querySelectorAll('input, textarea, select');
-console.log(userInputs);
+// console.log(userInputs);
 
 const entryTextSection = document.getElementById('entry-text')
 const deleteEventModal = document.getElementById('delete-modal');
@@ -207,7 +251,7 @@ const addEventHandler = () => {
 
 
   const cargEvent = new Evento(nombreValue, pizzaValue, cantidadPizzaValue, detalleValue, envio, id);
-  console.log(cargEvent);
+  // console.log(cargEvent);
   create(cargEvent)
   closeEventModal();
   clearEventInputs();
