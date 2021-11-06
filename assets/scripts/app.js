@@ -1,5 +1,5 @@
 // import {  } from './productos';
-
+const pizzas= []; 
 class Evento {
   constructor(nombre, pizza, cantidadPizza, detalle, envio) {
     this.nombre = nombre;
@@ -20,6 +20,19 @@ class Pizza {
 		this.image = image;
 		this.precio = Number(precio);
 }
+agregarProducto() {
+  pizzas.push(this);
+}
+borrarProducto() {
+  const indiceProducto = pizzas.findIndex(e => e.id == this.id);// Busco el indice
+  if (indiceProducto >= 0) { // como findIndex devuelve -1 cuando no encuentra, verifico
+    pizzas.splice(indiceProducto, 1);// uso el indice para borrar un lugar
+    return `producto ${this.nombre} borrado de la lista`
+  } else {
+    return "Error al borrar producto"
+  }
+}
+
 }
 
 /// Creacion de Pizzas
@@ -31,7 +44,16 @@ class Pizza {
   const pizzaAnchoas = new Pizza(5, 'Anchoas', 'Queso, Anchoas y aceituna negra', 'img/pizza5.jpg', 23);
   const pizzaNapolitana = new Pizza(6, 'Napolitana', 'Queso, Tomate, Cebolla y aceituna', 'img/pizza6.jpg', 20);
 
-  const pizzas= [pizzaMuzzarella, pizzaCalabreza, pizzaVegetal, pizzaCebolla, pizzaAnchoas, pizzaNapolitana];
+  pizzaMuzzarella.agregarProducto();
+  pizzaCalabreza.agregarProducto();
+  pizzaVegetal.agregarProducto();
+  pizzaCebolla.agregarProducto();
+  pizzaAnchoas.agregarProducto();
+  pizzaNapolitana.agregarProducto();
+
+
+
+  // const pizzas= [pizzaMuzzarella, pizzaCalabreza, pizzaVegetal, pizzaCebolla, pizzaAnchoas, pizzaNapolitana];
   //Creo Carrito
   const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
@@ -64,14 +86,24 @@ gridContainer.innerHTML = acumulador;
 
 if (gridContainer) {gridContainer.addEventListener('click', agregarCarro);}
 
+// function agregarCarro(e) {
+//   e.preventDefault();
+//   if (e.target.classList.contains('agregar-carrito')){
+//     const pizzaSeleccionada = e.target.parentNode; //  para que seleccione el Boton y agarre el nodo completo
+//     console.log(pizzaSeleccionada)
+//     seleccion(pizzaSeleccionada)
+//   }
+// }
+
 function agregarCarro(e) {
   e.preventDefault();
-  if (e.target.classList.contains('agregar-carrito')){
-    const pizzaSeleccionada = e.target.parentNode; //  para que seleccione el Boton y agarre el nodo completo
-    console.log(pizzaSeleccionada)
-    seleccion(pizzaSeleccionada)
-  }
+  let id = e.target.getAttribute("data-id");
+  let pizzaSeleccionada = pizzas.find((pizza) => {return pizza.id == id})
+  console.log(pizzaSeleccionada)
+  carrito.push(pizzaSeleccionada);
+  localStorage.setItem('carrito' , JSON.stringify(carrito));
 }
+
 // ACA ES DONDE INTENTO ENCAPSULAR LOS DATOS DEL ARTICULO EN EL BOTON. 
 function seleccion (pizzaSelect) {
     const datosPizza = {
@@ -92,7 +124,6 @@ function saveStorage(){
 
 
 // carro de compras 
-
 const contenedorCarrito = document.querySelector("#carrito");
 const mostrarCarrito = document.querySelector("#mostrar-carrito");
 
@@ -121,10 +152,28 @@ function renderizarCarrito(){
         <div class = "col">
           <h4 class ="">${pizza.nombre}</h4> 
           <h6 class ="">${pizza.precio}</h6>
+          <button id="${pizza.id}" class="btn btn-warning btnBorrar">Quitar del Carrito</button>
           </div>
           <hr/>
         `
         contenedorCarrito.appendChild(row)
+       console.log(carrito);
+        // contenedorCarrito.addEventListener('click', deletePizzaCarrito.bind(null,pizza.id))
+    
+    // Creo o actualizo los eventos del carrito   
+    const arrayBotonesBorrar = document.getElementsByClassName("btnBorrar");
+
+    //boton comprar, itero el array de botones y le pongo el evento al botón
+    for (const boton of arrayBotonesBorrar) {
+      boton.addEventListener('click', (event) => {// aca no usamos submit, usamos click, submit es para los form
+        const idProd = event.target.id; //usamos el event.target.id para acceder al id del elemento
+        // aca ejecutamos una función para agregar al carrito
+        console.log("borraste producto con id", idProd);
+        borrarDelCarrito(idProd);
+        renderizarCarrito()
+      })
+    }
+  
   })
 }
 
@@ -133,7 +182,28 @@ function limpiarCarrito(){
     contenedorCarrito.removeChild(contenedorCarrito.firstChild)
   }
 }
-/// Variables///////
+
+function borrarDelCarrito(id) {
+  const arrayDelStorage = JSON.parse(localStorage.getItem('carrito'));
+  const indiceProducto = arrayDelStorage.findIndex(e => e.id == id);
+  console.log(indiceProducto)
+  if (indiceProducto >= 0) {
+    arrayDelStorage.splice(indiceProducto, 1);
+    localStorage.setItem('carrito', JSON.stringify(arrayDelStorage));
+    return `producto con id ${id} borrado del carrito`
+  } else {
+    return "Error al borrar, no coincide el id"
+  }
+}
+
+const hayCarritoEnStorage = JSON.parse(localStorage.getItem('carrito'));
+
+if (hayCarritoEnStorage) { //Si hay carrito guardado, que lo muestre por primera vez
+  renderizarCarrito()
+}
+
+
+/// Variables CUADRO ARMA TU PROPIA PIZZA ///////
 const addEventModal = document.getElementById('add-modal');
 
 const startAddEventButton = document.querySelector('header button');
@@ -141,37 +211,12 @@ const backdrop = document.getElementById('backdrop');
 const cancelAddEventButton = addEventModal.querySelector('.btn--passive');
 const confirmAddEventButton = cancelAddEventButton.nextElementSibling;
 const userInputs = addEventModal.querySelectorAll('input, textarea, select');
-// console.log(userInputs);
 
 const entryTextSection = document.getElementById('entry-text')
 const deleteEventModal = document.getElementById('delete-modal');
 
 
 
-
-// function optionalfee() {
-//   let total = 0;
-//   // get the checked boxes only
- 
-//   for (var i = 0; i < checks.length; ++i) {
-//     let check = checks[i];
-//     // find the ID of the input to use
-//     let input = document.getElementById(check.getAttribute("data-id"));
-//     let val = input.value;
-//     // handle poor or no input - is in principle already handled by the type="number"
-//     let = (isNaN(val) || "" === val.trim()) ? 0 : parseFloat(val);
-//     total += val;
-//   }
-//   document.getElementById('toptional').value = total;
-// }
-// window.onload = function() {
-//   let checks = document.querySelectorAll(".optional"),
-//     fees = document.querySelectorAll(".fee");
-//   for (var i = 0; i < checks.length; i++) {
-//     checks[i].onclick = optionalfee;
-//     fees[i].oninput = optionalfee;
-//   }
-// }
 
 /// Funciones ///////
 const updateListEvent = () => {
@@ -211,46 +256,34 @@ const clearEventInputs = () =>{
 }
 /// VALIDADOR DE LOS INPUT y Creacion del Objeto/////////////
 
-
-
 const addEventHandler = () => {
   const nombreValue = userInputs[0].value;
-  let pizzaValue = userInputs[1].value;
+  let pizzaValue = userInputs[1];  // Le saque el value para que nos traiga todo el array
   const cantidadPizzaValue = userInputs[2].value;
   const detalleValue = userInputs[3].value;
   const envio = userInputs[4].value;
   const id = this.id;
+  let datosSelect = "" // Una variable de acumulacion de valores
+  for (let i = 0; i < pizzaValue.options.length; i++) { // Iteramos las opciones del select para saber cuales son los que el usuario eligio
+    const options = pizzaValue.options[i];
+    if (options.selected == true) {
+      datosSelect += `${options.value} `
+    }
+    console.log(datosSelect); 
+  }
   
-  // if (nombreValue.trim() === '' ||
-  //   +cantidadPizzaValue.trim() < 0 ||
-  //   bebidaValue.trim() === '' ||
-  //   +cantidadBebValue.trim() < 0 ||
-  //   // +precioTotalValue.trim() < 0 ||
-  //   detalleValue.trim() === ''
-  //   ) {
-  //   alert('Por favor ingresa valores validos');
-  // return;
-  // }
+  if (nombreValue.trim() === '' ||
+    datosSelect.trim() === '' ||
+    +cantidadPizzaValue.trim() < 0 ||
+    +envio.trim()  ==='' ||
+    detalleValue.trim() === ''
+    ) {
+    alert('Por favor ingresa valores validos');
+  return;
+  }
   
 
-
-  // if (pizzaValue == 1){
-  //   pizzaValue = 'Muzzarella'
-  // }else if (pizzaValue == 2){
-  //   pizzaValue = 
-  // } else if (pizzaValue == 3){
-  //   pizzaValue = pizzaVegetal.nombre
-  // } else if (pizzaValue == 4){
-  //   pizzaValue = pizzaCebolla.nombre
-  // } else if (pizzaValue == 5){
-  //   pizzaValue = pizzaAnchoas.nombre
-  // } else if (pizzaValue === 6){
-  //   pizzaValue = pizzaNapolitana.nombre
-  // }
-
-
-
-  const cargEvent = new Evento(nombreValue, pizzaValue, cantidadPizzaValue, detalleValue, envio, id);
+  const cargEvent = new Evento(nombreValue, datosSelect, cantidadPizzaValue, detalleValue, envio, id);
   // console.log(cargEvent);
   create(cargEvent)
   closeEventModal();
@@ -278,10 +311,6 @@ const create = (evento) => {
 }
 //// CREO ELEMNTOS EN EL NAVEGADOR///////////
 
-// const printId = (id) =>{
-//   console.log( id)
-// }
-
 const cancelEventDelete =() =>{
   toggleBackdrop();
   deleteEventModal.classList.remove('visible');
@@ -305,7 +334,6 @@ const deleteEvent = (eventId) =>{
   cancelEventDelete();
 
 }
-
 
 const deleteEventHandler = (eventId) =>{
   deleteEventModal.classList.add('visible');
@@ -349,9 +377,6 @@ const renderNewEventElem = () =>{
     const listEvents =document.getElementById('event-list');
     listEvents.append(newEventElement);
     newEventElement.addEventListener('click', deleteEventHandler.bind(null,event.id)) //Agrego Bind Porque es un elemento que AUN NO EXISTE. 
-    // const elementInfo= document.getElementsByClassName('event-element__info')
-    // const deleteEvent = document.elementInfo.children
-    // deleteEvent.addEventListener('click', deleteEventHandler.bind(null,event.id)) //Agrego Bind Porque es un elemento que AUN NO EXISTE. 
  }
 };
 //<p>Costo Evento ${evento.costoInv(evento.calidad,evento.consumiciones,evento.invitados)}; No se como meter dentro del la Funcion es
