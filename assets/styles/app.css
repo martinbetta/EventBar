@@ -451,16 +451,21 @@ footer p {
     width: 40rem;
     left: calc(50% - 20rem);
   }
+  /* #backdrop-carrito{
+    width: 20rem;
+    left: calc(50% - 20rem);
+  } */
 }
 
 
-/* #backdrop-carrito {
+#backdrop-carrito {
   position: fixed;
-  width: 100%;
-  height: 100vh;
+  width: 40%;
+  height: 95%;
+  /* margin: auto; */
   top: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.75);
+  left: 25rem;
+  background: rgba(0, 0, 0, 0.26);
   z-index: 10;
   pointer-events: none;
   display: none;
@@ -469,4 +474,4 @@ footer p {
 #backdrop-carrito.visible {
   display: block;
   pointer-events: all;
-} */
+}

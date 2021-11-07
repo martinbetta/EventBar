@@ -63,19 +63,31 @@ const deleteEventModal = document.getElementById('delete-modal');
 // const addCarritoStore = document.getElementById('backdrop-carrito')
 // const addCarritoModal = $('add-carrito');
 
-if (carrito.length > 0)
-{$('addCarritoModal').addClass('visible');
+// if (carrito.length > 0)
+// {$('addCarritoModal').addClass('visible');
 
-}else $('addCarritoModal').removeClass('visible');
+// }else $('addCarritoModal').removeClass('visible');
 
 /////CARRITO CON JS/////////
 
-// const addCarritoModal = document.getElementById('add-carrito');
+const addCarritoModal = document.getElementById('add-carrito');
 
-// if (carrito.length > 0)
-// { addCarritoModal.classList.add('visible');
+if (carrito.length > 0)
+{ addCarritoModal.classList.add('visible');
 
-// }else addCarritoModal.classList.remove('visible');
+}else addCarritoModal.classList.remove('visible');
+
+
+const carritoShow = document.getElementById ('mostrar-carrito')
+const addCarritoStore = document.getElementById('backdrop-carrito')
+const  carritoShowHandler = () => {
+  backdrop.classList.toggle('visible');
+  addCarritoStore.classList.toggle('visible');
+} 
+carritoShow.addEventListener('click',carritoShowHandler);
+
+
+
 
 
 /// Creacion de Pizzas
@@ -195,10 +207,10 @@ function renderizarCarrito(){
     const row = document.createElement('div');
     row.classList.add('row')
     row.innerHTML+= `
-      <div class= 'col'>
+      <div class= 'col-sm'>
    
         </div>
-        <div class = "col">
+        <div class = "col-sm">
           <h4 class ="">${pizza.nombre}</h4> 
           <img id="carrito-img" class =""src="${pizza.image}" alt="${pizza.nombre}">
           <button id="${pizza.id}" class="btn btn-warning btnBorrar">Quitar del Carrito</button>
@@ -267,6 +279,8 @@ const updateListEvent = () => {
 
 const toggleBackdrop = () =>{
   backdrop.classList.toggle('visible');
+  addCarritoStore.classList.toggle('visible');
+
 };
 
 
