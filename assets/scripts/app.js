@@ -8,9 +8,10 @@ console.log( "El DOM esta listo Muñeco!!" );
 const pizzas= []; 
 const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 class Evento {
-  constructor(nombre, pizza, cantidadPizza, detalle, envio) {
+  constructor(nombre, pizza, maza, cantidadPizza, detalle, envio) {
     this.nombre = nombre;
     this.pizza = pizza;
+    this.maza = maza;
     this.cantidadPizza = cantidadPizza
     this.detalle = detalle;
     this.envio = envio;
@@ -212,7 +213,8 @@ function renderizarCarrito(){
         </div>
         <div class = "col-sm">
           <h4 class ="">${pizza.nombre}</h4> 
-          <img id="carrito-img" class =""src="${pizza.image}" alt="${pizza.nombre}">
+          <img id="carrito-img" class =""src="${pizza.image}" alt="${pizza.nombre}"><br>
+          <p>Precio: ARS${pizza.precio}</p>
           <button id="${pizza.id}" class="btn btn-warning btnBorrar">Quitar del Carrito</button>
           </div>
           <hr/>
@@ -312,9 +314,10 @@ const clearEventInputs = () =>{
 const addEventHandler = () => {
   const nombreValue = userInputs[0].value;
   let pizzaValue = userInputs[1];  // Le saque el value para que nos traiga todo el array
-  const cantidadPizzaValue = userInputs[2].value;
-  const detalleValue = userInputs[3].value;
-  const envio = userInputs[4].value;
+  const mazaValue = userInputs[2].value;
+  const cantidadPizzaValue = userInputs[3].value;
+  const detalleValue = userInputs[4].value;
+  const envio = userInputs[5].value;
   const id = this.id;
   let datosSelect = "" // Una variable de acumulacion de valores
   for (let i = 0; i < pizzaValue.options.length; i++) { // Iteramos las opciones del select para saber cuales son los que el usuario eligio
@@ -336,8 +339,8 @@ const addEventHandler = () => {
   }
   
 
-  const cargEvent = new Evento(nombreValue, datosSelect, cantidadPizzaValue, detalleValue, envio, id);
-  // console.log(cargEvent);
+  const cargEvent = new Evento(nombreValue, datosSelect, mazaValue, cantidadPizzaValue, detalleValue, envio, id);
+  console.log(cargEvent);
   create(cargEvent)
   closeEventModal();
   clearEventInputs();
@@ -417,10 +420,12 @@ const renderNewEventElem = () =>{
   newEventElement.innerHTML = `
   <div class="event-element__info">
    
-    <h2>El pedido a Nombre de: ${event.nombre}  <button id='delete-Button'> Eliminar </button> </h2> 
-    <p>Pidio ${event.cantidadPizza} pizza/s de ${event.pizza}</p> <br>
+    <h2>Nombre de la Pizza: ${event.nombre} </h2> 
+    <p>Pidio ${event.cantidadPizza} pizza/s de ${event.pizza}</p>
+    <p>La maza elegida es: ${event.maza}</p><br>
     <p>Pedido extra :  ${event.detalle}</p>
-    <p>El detalle del pedido es:  ${event.envio}
+    
+    <p>El detalle del pedido es:  ${event.envio}</p>
     </div>`;
     // console.log(newEventElement)
   
