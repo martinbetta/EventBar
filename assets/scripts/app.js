@@ -1,5 +1,12 @@
 // import {  } from './productos';
+$( document ).ready(function()
+{
+console.log( "El DOM esta listo Muñeco!!" );
+});
+
+
 const pizzas= []; 
+const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 class Evento {
   constructor(nombre, pizza, cantidadPizza, detalle, envio) {
     this.nombre = nombre;
@@ -35,6 +42,42 @@ borrarProducto() {
 
 }
 
+
+/// Variables CUADRO ARMA TU PROPIA PIZZA ///////
+const addEventModal = document.getElementById('add-modal');
+
+const startAddEventButton = document.querySelector('header button');
+const backdrop = document.getElementById('backdrop');
+const cancelAddEventButton = addEventModal.querySelector('.btn--passive');
+const confirmAddEventButton = cancelAddEventButton.nextElementSibling;
+const userInputs = addEventModal.querySelectorAll('input, textarea, select');
+
+const entryTextSection = document.getElementById('entry-text')
+const deleteEventModal = document.getElementById('delete-modal');
+
+
+
+
+
+/////CARRITO CON JQUERY/////////
+// const addCarritoStore = document.getElementById('backdrop-carrito')
+// const addCarritoModal = $('add-carrito');
+
+if (carrito.length > 0)
+{$('addCarritoModal').addClass('visible');
+
+}else $('addCarritoModal').removeClass('visible');
+
+/////CARRITO CON JS/////////
+
+// const addCarritoModal = document.getElementById('add-carrito');
+
+// if (carrito.length > 0)
+// { addCarritoModal.classList.add('visible');
+
+// }else addCarritoModal.classList.remove('visible');
+
+
 /// Creacion de Pizzas
 
   const pizzaMuzzarella = new Pizza(1, 'Muzzarella', 'Queso, oregano y aceituna', 'img/pizza1.jpg', 20);
@@ -55,8 +98,14 @@ borrarProducto() {
 
   // const pizzas= [pizzaMuzzarella, pizzaCalabreza, pizzaVegetal, pizzaCebolla, pizzaAnchoas, pizzaNapolitana];
   //Creo Carrito
-  const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
+
+
+/// QUE PRENDA Y APAGUE EL BOTON DEL MOSTRAR CARRITO ESTANDO FULL O VACIO
+
+
+
+/////////////////////////////////////////////////////////////////////////////   
 
   const gallery =document.getElementById('gallery');
   const gridContainer = document.getElementById('grid-container');
@@ -151,7 +200,7 @@ function renderizarCarrito(){
         </div>
         <div class = "col">
           <h4 class ="">${pizza.nombre}</h4> 
-          <h6 class ="">${pizza.precio}</h6>
+          <img id="carrito-img" class =""src="${pizza.image}" alt="${pizza.nombre}">
           <button id="${pizza.id}" class="btn btn-warning btnBorrar">Quitar del Carrito</button>
           </div>
           <hr/>
@@ -202,18 +251,8 @@ if (hayCarritoEnStorage) { //Si hay carrito guardado, que lo muestre por primera
   renderizarCarrito()
 }
 
+console.log(carrito.length)
 
-/// Variables CUADRO ARMA TU PROPIA PIZZA ///////
-const addEventModal = document.getElementById('add-modal');
-
-const startAddEventButton = document.querySelector('header button');
-const backdrop = document.getElementById('backdrop');
-const cancelAddEventButton = addEventModal.querySelector('.btn--passive');
-const confirmAddEventButton = cancelAddEventButton.nextElementSibling;
-const userInputs = addEventModal.querySelectorAll('input, textarea, select');
-
-const entryTextSection = document.getElementById('entry-text')
-const deleteEventModal = document.getElementById('delete-modal');
 
 
 
