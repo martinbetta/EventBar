@@ -337,8 +337,9 @@ select:focus {
 }
 .tituloBanner h2{   
     color:white;
-    padding-top: 400px;
-    padding-left: 300px;
+    /* margin: auto 0; */
+    padding-left: 450px;
+    padding-top:400px;
     font-size: 7vh;
 }
 .banner{
