@@ -337,8 +337,9 @@ select:focus {
 }
 .tituloBanner h2{   
     color:white;
-    padding-top: 400px;
-    padding-left: 300px;
+    /* margin: auto 0; */
+    padding-left: 450px;
+    padding-top:400px;
     font-size: 7vh;
 }
 .banner{
@@ -451,22 +452,27 @@ footer p {
     width: 40rem;
     left: calc(50% - 20rem);
   }
+  #backdrop-carrito{
+    width: 20rem;
+    left: calc(50% - 20rem);
+  }
 }
 
 
-/* #backdrop-carrito {
+#backdrop-carrito {
   position: fixed;
-  width: 100%;
-  height: 100vh;
+  width: 40%;
+  height: 95%;
   top: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.75);
+  left: 25rem;
+  background: rgba(0, 0, 0, 0.26);
   z-index: 10;
   pointer-events: none;
   display: none;
+  color: white;
 }
 
 #backdrop-carrito.visible {
   display: block;
   pointer-events: all;
-} */
+}
