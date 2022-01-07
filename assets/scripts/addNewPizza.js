@@ -39,9 +39,9 @@ closeEventModal = () =>{
 const showEventModal = () => { // function() {}
   addEventModal.classList.add('visible');
   toggleBackdrop();// llamo para que ademas de hacer visible haga el efecto sombra.
-  addCarritoModal.classList.remove('visible') // Para que no aparezca el boton de "mostrar carrito"
+  // addCarritoModal.classList.remove('visible') // Para que no aparezca el boton de "mostrar carrito"
   // backdrop.classList.toggle('visible');
-  addCarritoStore.classList.toggle('visible');
+  // addCarritoStore.classList.toggle('visible');
 };
   
 const cancelAddEventHandler = () =>{
@@ -91,7 +91,7 @@ const addEventHandler = () => {
   renderNewEventElem();
   updateListEvent();
   toggleBackdrop();
-  addCarritoStore.classList.remove('visible');
+  // addCarritoStore.classList.remove('visible');
   
   };
   
@@ -149,7 +149,7 @@ const deleteEventHandler = (eventId) =>{
   cancelDeleteButton.removeEventListener('click', cancelEventDelete);
   cancelDeleteButton.addEventListener('click', cancelEventDelete);
   confirmDeleteButton.addEventListener('click', deleteEvent.bind(null, eventId));
-  addCarritoStore.classList.remove('visible');// para que no aparezca el carrito de fondo. 
+  // addCarritoStore.classList.toggle('visible');// para que no aparezca el carrito de fondo. 
 //  deleteEvent (eventId);
 };
 

@@ -44,20 +44,12 @@ pizzaCebolla.agregarProducto();
 pizzaAnchoas.agregarProducto();
 pizzaNapolitana.agregarProducto();
 
-// const pizzas= [pizzaMuzzarella, pizzaCalabreza, pizzaVegetal, pizzaCebolla, pizzaAnchoas, pizzaNapolitana];
-
 // PIZZAS HTML DOM////
-const gallery =document.getElementById('gallery');
-const gridContainer = document.getElementById('grid-container');
-// const selectedImages = document.getElementById('selectedImage');
-const imageIndexes = [1,2,3,4,5,6];
-const selectedIndex = null;
+const divProducto = document.getElementById('grid-container');
 
-let acumulador = '';
-
-for (let i = 0; i <pizzas.length;i++){
-  const pizza=pizzas[i]
-  acumulador += `
+for (let pizza of pizzas){
+  let itemProducto = document.createElement('div')
+  itemProducto.innerHTML= `
   <div class = 'products-items'>
   <div>
   <img class = "grid-item imgProd" src="${pizza.image}" alt="${pizza.nombre}">
@@ -65,9 +57,10 @@ for (let i = 0; i <pizzas.length;i++){
   <p class = 'pizzaNom' id="">${pizza.nombre}</p>
   <p class = 'pizzaIng' id="">${pizza.ingredientes}</p>
   <p class = 'pizzaPrec' id="">ARS ${pizza.precio}</p>
-  <button data-id="${pizza.id}" class = "boton-carrito agregar-carrito">Agregar </button>
+  <button id="${pizza.id}" class = "boton-carrito agregar-carrito">Agregar </button>
   </div>
   </div>
   </div>
   `
+  divProducto.appendChild(itemProducto); 
 };
