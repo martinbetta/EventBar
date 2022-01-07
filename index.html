@@ -7,10 +7,10 @@
     <title>Simulador de Eventos</title>
     <link rel="stylesheet" href="assets/styles/app.css" />
     <script src="assets/scripts/app.js" defer></script>
+    <script src="assets/scripts/addNewPizza.js" defer></script>
+    <script src="assets/scripts/carrito.js" defer></script>
     <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&display=swap" rel="stylesheet">
     <script src="https://kit.fontawesome.com/23170058e7.js" crossorigin="anonymous"></script>
-
-
   </head>
   <body>
     <div class ='nav-bar'>
@@ -20,14 +20,10 @@
         <h2>Arma tu reunion </h2>
       </div>
       <div class='info'> 
-  
         <i class="fas fa-phone"></i> +555 525225 | <i class="fas fa-envelope"></i> ventas |
-        Seguinos<i class="fab fa-facebook-square"> | Facebook</i> | <i class="fab fa-instagram-square"></i> Instagram
-    
+        Seguinos<i class="fab fa-facebook-square"> | Facebook</i> | <i class="fab fa-instagram-square"></i> Instagram 
       </div>
     </div>
-
-
     <div class='CompletBanner'> 
       <div class='banner'>
       </div>    
@@ -35,16 +31,11 @@
         <h2>TU PIZZA AL INSTANTE</h2>
       </div>  
     </div>
-
     <div id="backdrop"></div>
     <div class="modal card" id="add-modal">
       <div class="modal__content">
-       
         <label for="title">Nombre de tu Pizza</label>
         <input type="text" name="title" id="title" />
-        
-
-        
         <label for="pizza">Que Pizza quieres</label>
         <select name="pizza" multiple= 'multiple' >
         <option value="Muzzarella"name ='Muzzarella' selected>Muzzarella</option>
@@ -56,13 +47,11 @@
         <option value="Ajo Negro" name ='Ajo Negro'>Ajo Negro</option>
         <option value="Palmitos" name ='Palmitos'>Palmitos</option>
         </select>
-
         <label for="maza">Que Maza te gustaria?</label>
         <select name="pizza" multiple= 'multiple' >
         <option value="Piedra"name ='Piedra' selected>Piedra</option>
         <option value="Maza Pan" name ='Maza Pan'>Maza Pan</option> 
         </select>
-        
         <label for="cantidad Pizzas">cuantas Pizzas</label>
         <input
           type="number"
@@ -72,14 +61,11 @@
           name="calidad"
           id="calidad"
           />
-      
           <label for="extratext">Algo mas para agregarle?</label>
 
         <textarea id="w3review" name="w3review" rows="4" cols="50"></textarea>
         <label for="detalle">A donde lo enviamos?, algun pedido especial?</label>
         <input type="text" name="detalle" id="detalle" />
-
-
       </div>
       <div class="modal__actions">
         <button class="btn btn--passive">Eliminar</button>
@@ -96,40 +82,29 @@
         <button class="btn btn--danger">Si</button>
       </div>
     </div>
-
     <header>
       <button>Arma tu Propia Pizza</button>
       <h1></h1>
     </header>
-
     <main>
       <section id="entry-text" class="card">
         <p>Si no tenemos la pizza que queres podes armar la tuya</p>
       </section>
       <ul id="event-list"></ul>
     </main>
-
-
      <div class='variedad'> 
         <h2 >Nuestra variedad de Pizzas y Cervezas</h2>
         <div id='galery'> </div>
       </div> 
       <div id='grid-container'> 
-  
       </div>
-
-
       <div class= 'container'>  
         <div class="modal-carrito" id="add-carrito">
         <button  class="btn btn-primary px-5" id="mostrar-carrito">mostrar carrito</button>
         </div>
-      
       <div id='backdrop-carrito' class> 
         <div id ='carrito'>
-          
-        </div>
-        </div>
-
+          <div id="carrito-DOM"></div>
       </div>
       <footer>
         <p>© 2021 EventART 24H - Tienda : Venta de bebidas frias las 24 horas en todo el Pais</p>
