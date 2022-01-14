@@ -4,16 +4,16 @@ $( document ).ready(function()
 console.log( "El DOM esta listo Muñeco!!" );
 });
 
-const pizzas= []; 
-const carrito = JSON.parse(localStorage.getItem('carrito')) || [];
 
 class Pizza {
-  constructor(id, nombre, ingredientes, image, precio){
+  constructor(id, nombre, ingredientes, image, precio, cantidad){
 		this.id = id;
 		this.nombre = nombre;
 		this.ingredientes= ingredientes;
 		this.image = image;
 		this.precio = Number(precio);
+    this.cantidad = Number(cantidad);
+
   }
   agregarProducto() {
     pizzas.push(this);
@@ -30,11 +30,12 @@ class Pizza {
 }
 
 /// Creacion de Pizzas
-const pizzaMuzzarella = new Pizza(1, 'Muzzarella', 'Queso, oregano y aceituna', 'img/pizza1.jpg', 20);
-const pizzaCalabreza = new Pizza(2, 'Calabreza', 'Calabreza, Muzzarella y aceituna', 'img/pizza2.jpg', 25);
-const pizzaVegetal = new Pizza(3, 'Vegetal', 'Queso, champignones, Morron Verde, aceituna', 'img/pizza3.jpg', 28);
-const pizzaCebolla = new Pizza(4, 'cebolla', 'Mucha Cebolla, Queso, aceituna', 'img/pizza4.jpg', 28);
-const pizzaAnchoas = new Pizza(5, 'Anchoas', 'Queso, Anchoas y aceituna negra', 'img/pizza5.jpg', 23);
+const pizzas = []
+const pizzaMuzzarella = new Pizza(1, 'Muzzarella', 'Queso, oregano y aceituna', 'img/pizza1.jpg', 20,1);
+const pizzaCalabreza = new Pizza(2, 'Calabreza', 'Calabreza, Muzzarella y aceituna', 'img/pizza2.jpg', 25,1);
+const pizzaVegetal = new Pizza(3, 'Vegetal', 'Queso, champignones, Morron Verde, aceituna', 'img/pizza3.jpg', 28,1);
+const pizzaCebolla = new Pizza(4, 'cebolla', 'Mucha Cebolla, Queso, aceituna', 'img/pizza4.jpg', 28,1);
+const pizzaAnchoas = new Pizza(5, 'Anchoas', 'Queso, Anchoas y aceituna negra', 'img/pizza5.jpg', 23,1);
 const pizzaNapolitana = new Pizza(6, 'Napolitana', 'Queso, Tomate, Cebolla y aceituna', 'img/pizza6.jpg', 20);
 
 pizzaMuzzarella.agregarProducto();
@@ -43,24 +44,141 @@ pizzaVegetal.agregarProducto();
 pizzaCebolla.agregarProducto();
 pizzaAnchoas.agregarProducto();
 pizzaNapolitana.agregarProducto();
-
+// const pizzas = "json/pizzas.JSON"
 // PIZZAS HTML DOM////
 const divProducto = document.getElementById('grid-container');
 
-for (let pizza of pizzas){
-  let itemProducto = document.createElement('div')
-  itemProducto.innerHTML= `
-  <div class = 'products-items'>
-  <div>
-  <img class = "grid-item imgProd" src="${pizza.image}" alt="${pizza.nombre}">
-  <div class = 'body-images' >
-  <p class = 'pizzaNom' id="">${pizza.nombre}</p>
-  <p class = 'pizzaIng' id="">${pizza.ingredientes}</p>
-  <p class = 'pizzaPrec' id="">ARS ${pizza.precio}</p>
-  <button id="${pizza.id}" class = "boton-carrito agregar-carrito">Agregar </button>
-  </div>
-  </div>
-  </div>
-  `
-  divProducto.appendChild(itemProducto); 
+
+const inyectarCards = () => {
+  pizzas.forEach((pizza) => {
+    divProducto.innerHTML += `
+    <div class = 'products-items'>
+    <div>
+    <img  src="${pizza.image}" alt="${pizza.nombre}" class = "grid-item imgProd body-images">
+    <h3 class = 'pizzaNom' id="">${pizza.nombre}</h3>
+    <p class = 'pizzaIng' id="">${pizza.ingredientes}</p>
+    <h4 class = 'pizzaPrec' id="">ARS <span>${pizza.precio}</span></h4>
+    <button data-id="${pizza.id}" class ="boton-carrito agregar-carrito">Agregar </button>
+    </div>
+    </div>
+    `;
+  });
+  console.log(pizzas)
+  let btnBuy = document.querySelectorAll(".agregar-carrito");
+
+  btnBuy.forEach((element) => {
+    element.addEventListener("click", (event) => {
+      enviarAlCarrito(event.target.parentElement);
+    });
+  });
 };
+
+
+const enviarAlCarrito = (datosProductos) => {
+  let productoAlCarrito = {
+    imagen: datosProductos.querySelector("img").src,
+    nombre: datosProductos.querySelector("h3").textContent,
+    precioPorUnidad: Number(
+      datosProductos.querySelector("h4 span").textContent
+    ),
+    precioTotal: Number(datosProductos.querySelector("h4 span").textContent),
+    cantidad: 1,
+    id: Number(datosProductos.querySelector("button").getAttribute("data-id")),
+  };
+  let existeProducto = carrito.some(
+    (element) => element.id === productoAlCarrito.id
+  );
+  if (existeProducto) { // si existe carrito haga le map para que traiga todo 
+    carrito = carrito.map((element) => {
+      if (element.id === productoAlCarrito.id) { // cuando coincidio 
+        element.cantidad++;// sume de a uno 
+        element.precioTotal = element.precioPorUnidad * element.cantidad; // aca genero el precio Total por producto
+        return element; // en ambos casos se tiene que devolver ya sea modificado o no
+      } else {
+        return element; // en ambos casos se tiene que devolver ya sea modificado o no
+      }
+    });
+  } else {
+    carrito.push(productoAlCarrito); // si el segundo if es false, agrega el producto por 1era vez 
+  }
+
+  renderizarCarrito();
+}
+
+
+
+//////////
+carrito=[];
+const divCarrito = document.getElementById('carrito-DOM'); 
+function renderizarCarrito(){
+  
+// const carritoDelStorage = JSON.parse(localStorage.getItem('carrito'));
+
+divCarrito.innerHTML = '';
+for (let pizza of carrito) {
+  let itemProducto = document.createElement('div') // Creo el elemento para mostrar
+  //Acá en vez de mostrar solo el nombre, podemos montar la card completa usando plantillas literales
+  itemProducto.innerHTML = `
+    <div class = "col-sm">
+      <h4 class ="">${pizza.nombre}</h4> 
+      <img id="carrito-img" class =""src="${pizza.imagen}" alt="${pizza.nombre}"><br>
+      <p>Precio: ARS${pizza.precioPorUnidad}</p>
+      <p>Precio Total: ARS${pizza.precioTotal}</p>
+      <p>Cantidad : ${pizza.cantidad}</p>
+      <button class="btn-menos" data-id=${pizza.id}> - </button>
+      <button data-id=${pizza.id} class="btn btn-warning btnBorrar">Quitar del Carrito</button>
+    </div>
+      <hr/>
+    `
+    console.log(carrito);
+  divCarrito.appendChild(itemProducto);
+}
+
+
+const restarProducto = (event) => {
+  let idProducto = Number(event.target.getAttribute("data-id"));
+  carrito = carrito.map((element) => {
+    if (element.id === idProducto) {
+      element.cantidad--;
+      element.precioTotal = element.precioTotal - element.precioPorUnidad;
+      if (element.cantidad === 0) {
+        element.cantidad = 1;
+        element.precioTotal = element.precioPorUnidad;
+      }
+      return element;
+    } else {
+      return element;
+    }
+  });
+  // localStorage.setItem("carrito", JSON.stringify(carrito));
+  renderizarCarrito();
+};
+
+divCarrito.addEventListener("click", (event) => {
+  if (event.target.classList.contains("btn-menos")) {// contain dice, "si el elemento contiene esta clase hacer esto..."
+    restarProducto(event);
+  }
+  if (event.target.classList.contains("btnBorrar")) {
+    borrarProducto(event);
+  }
+});
+
+}
+
+inyectarCards();
+const addCarritoStore = document.getElementById('backdrop-carrito')
+const carritoShow = document.getElementById ('mostrar-carrito')
+
+
+const  carritoShowHandler = () => {
+  backdrop.classList.toggle('visible');
+  // toggleBackdropCarrito();
+  addCarritoStore.classList.toggle('visible');
+}
+
+const  carritoShowHandlerDelete = () => {
+  backdrop.classList.remove('visible');
+  // toggleBackdropCarrito();
+  addCarritoStore.classList.remove('visible');
+}
+carritoShow.addEventListener('click',carritoShowHandler);
