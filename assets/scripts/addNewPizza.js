@@ -29,7 +29,8 @@ const updateListEvent = () => {
   
 const toggleBackdrop = () =>{
   backdrop.classList.toggle('visible');
-  addCarritoStore.classList.toggle('visible');
+  addCarritoStore.classList.toggle('visible'); /// LO TENGO QUE REEMPLAZAR
+
 };
 
 closeEventModal = () =>{
@@ -90,10 +91,8 @@ const addEventHandler = () => {
   clearEventInputs();
   renderNewEventElem();
   updateListEvent();
-  toggleBackdrop();
-  // addCarritoStore.classList.remove('visible');
-  
-  };
+  toggleBackdrop(); 
+};
   
 const backdropClickHandler =() => {
   closeEventModal();
@@ -119,12 +118,10 @@ const cancelEventDelete =() =>{
 };
 
 const deleteEvent = (eventId) =>{
-
   let identifyId = 0;
   for (let event of eventos){
     if (event.id ===eventId){
       break;
-  
     }
     identifyId++;
   }
@@ -155,17 +152,17 @@ const deleteEventHandler = (eventId) =>{
 
 /////////ACA ES DONDE INGRESO EN EL DOM///////////////////////////
 const renderNewEventElem = () =>{
-for (let event of eventos) {
-const newEventElement = document.createElement('li');
-newEventElement.className = 'event-element';
-newEventElement.innerHTML = `
-<div class="event-element__info">
-  <h2>Nombre de la Pizza: ${event.nombre} </h2> 
-  <p>Pidio ${event.cantidadPizza} pizza/s de ${event.pizza}</p>
-  <p>La maza elegida es: ${event.maza}</p><br>
-  <p>Pedido extra :  ${event.detalle}</p>
-  <p>El detalle del pedido es:  ${event.envio}</p>
-  </div>`;
+  for (let event of eventos) {
+  const newEventElement = document.createElement('li');
+    newEventElement.className = 'event-element';
+    newEventElement.innerHTML = `
+    <div class="event-element__info">
+      <h2>Nombre de la Pizza: ${event.nombre} </h2> 
+      <p>Pidio ${event.cantidadPizza} pizza/s de ${event.pizza}</p>
+      <p>La maza elegida es: ${event.maza}</p><br>
+      <p>Pedido extra :  ${event.detalle}</p>
+      <p>El detalle del pedido es:  ${event.envio}</p>
+      </div>`;
   const listEvents =document.getElementById('event-list');
   listEvents.append(newEventElement);
   newEventElement.addEventListener('click', deleteEventHandler.bind(null,event.id)) //Agrego Bind Porque es un elemento que AUN NO EXISTE. 

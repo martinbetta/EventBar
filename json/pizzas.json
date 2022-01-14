@@ -1,0 +1,46 @@
+[
+  {
+    "id": 1,
+    "nombre": "Muzzarella",
+    "ingredientes": "Queso, oregano y aceituna",
+    "image": "img/pizza1.jpg",
+    "precio": 20
+  
+  },
+  {
+    "id": 2,
+    "nombre":"Calabreza" ,
+    "ingredientes": "Calabreza, Muzzarella y aceituna",
+    "image": "img/pizza2.jpg",
+    "precio": 28
+  },
+  {
+    "id": 3,
+    "nombre": "Vegetal",
+    "ingredientes": "Queso, champignones, Morron Verde, aceituna",
+    "image": "img/pizza3.jpg",
+    "precio":25
+  },
+  {
+    "id": 4,
+    "nombre": "cebolla" ,
+    "ingredientes": "Mucha Cebolla, Queso, aceituna",
+    "image": "image",
+    "precio":24
+  },
+  {
+    "id": 5,
+    "nombre": "Anchoas" ,
+    "ingredientes": "Queso, Anchoas y aceituna negra",
+    "image": "img/pizza5.jpg",
+    "precio":30
+  },
+  {
+    "id": 6,
+    "nombre":"Napolitana" ,
+    "ingredientes": "Queso, Tomate, Cebolla y aceituna",
+    "image": "img/pizza6.jpg",
+    "precio":30
+  }
+  ]
+  

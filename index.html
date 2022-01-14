@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta http-equiv="X-UA-Compatible" content="ie=edge" />
     <title>Simulador de Eventos</title>
-    <link rel="stylesheet" href="assets/styles/app.css" />
+    <link rel="stylesheet" href="styles/app.css" />
     <script src="assets/scripts/app.js" defer></script>
     <script src="assets/scripts/addNewPizza.js" defer></script>
     <script src="assets/scripts/carrito.js" defer></script>
@@ -13,6 +13,8 @@
     <script src="https://kit.fontawesome.com/23170058e7.js" crossorigin="anonymous"></script>
   </head>
   <body>
+     <!-- NAV -->
+     
     <div class ='nav-bar'>
       <div class ='logotipo'> 
         <img src="img/logo.jpg" alt>
@@ -95,6 +97,9 @@
      <div class='variedad'> 
         <h2 >Nuestra variedad de Pizzas y Cervezas</h2>
         <div id='galery'> </div>
+      </div>
+      <div id ='total-compra'>
+        <!-- <h2>Total:</h2> -->
       </div> 
       <div id='grid-container'> 
       </div>
@@ -102,11 +107,13 @@
         <div class="modal-carrito" id="add-carrito">
         <button  class="btn btn-primary px-5" id="mostrar-carrito">mostrar carrito</button>
         </div>
-      <div id='backdrop-carrito' class> 
-        <div id ='carrito'>
-        <div id="carrito-DOM"></div>
+      <!-- <div id='back-backdrop-carrito'>   -->
+        <div id='backdrop-carrito' class> 
+          <div id ='carrito'>
+            <div id="carrito-DOM"></div>
+          </div>
+        <!-- </div> -->
       </div>
-    </div>
       <footer>
         <p>© 2021 EventART 24H - Tienda : Venta de bebidas frias las 24 horas en todo el Pais</p>
       </footer>
