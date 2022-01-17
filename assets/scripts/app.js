@@ -4,7 +4,6 @@ $( document ).ready(function()
 console.log( "El DOM esta listo Muñeco!!" );
 });
 
-
 class Pizza {
   constructor(id, nombre, ingredientes, image, precio, cantidad){
 		this.id = id;
@@ -46,9 +45,13 @@ pizzaAnchoas.agregarProducto();
 pizzaNapolitana.agregarProducto();
 // const pizzas = "json/pizzas.JSON"
 // PIZZAS HTML DOM////
+
 const divProducto = document.getElementById('grid-container');
+carrito= JSON.parse(localStorage.getItem("carrito")) || [];// es para que cada vez que inicie buscque el localStorage "carrito"
+const divCarrito = document.getElementById("carrito-DOM"); 
 
 
+// HTML Donde se arma la pagina principal con las pizzas
 const inyectarCards = () => {
   pizzas.forEach((pizza) => {
     divProducto.innerHTML += `
@@ -63,7 +66,6 @@ const inyectarCards = () => {
     </div>
     `;
   });
-  console.log(pizzas)
   let btnBuy = document.querySelectorAll(".agregar-carrito");
 
   btnBuy.forEach((element) => {
@@ -73,7 +75,7 @@ const inyectarCards = () => {
   });
 };
 
-
+// Boton enviar al carrito 
 const enviarAlCarrito = (datosProductos) => {
   let productoAlCarrito = {
     imagen: datosProductos.querySelector("img").src,
@@ -101,39 +103,35 @@ const enviarAlCarrito = (datosProductos) => {
   } else {
     carrito.push(productoAlCarrito); // si el segundo if es false, agrega el producto por 1era vez 
   }
-
+  localStorage.setItem("carrito",JSON.stringify(carrito))
   renderizarCarrito();
 }
 
-
-
-//////////
-carrito=[];
-const divCarrito = document.getElementById('carrito-DOM'); 
+//HTML del Carrito, boton Mostrar carrito.
 function renderizarCarrito(){
-  
-// const carritoDelStorage = JSON.parse(localStorage.getItem('carrito'));
-
-divCarrito.innerHTML = '';
+divCarrito.innerHTML = "";
 for (let pizza of carrito) {
-  let itemProducto = document.createElement('div') // Creo el elemento para mostrar
   //Acá en vez de mostrar solo el nombre, podemos montar la card completa usando plantillas literales
-  itemProducto.innerHTML = `
-    <div class = "col-sm">
+  divCarrito.innerHTML += `<div>
       <h4 class ="">${pizza.nombre}</h4> 
       <img id="carrito-img" class =""src="${pizza.imagen}" alt="${pizza.nombre}"><br>
       <p>Precio: ARS${pizza.precioPorUnidad}</p>
       <p>Precio Total: ARS${pizza.precioTotal}</p>
       <p>Cantidad : ${pizza.cantidad}</p>
-      <button class="btn-menos" data-id=${pizza.id}> - </button>
-      <button data-id=${pizza.id} class="btn btn-warning btnBorrar">Quitar del Carrito</button>
-    </div>
+      <button  class="btn-menos" data-id=${pizza.id}> - </button>
+      <button class="btn btn-warning btnBorrar" data-id=${pizza.id} >Quitar del Carrito</button>
       <hr/>
+      </div>
     `
-    console.log(carrito);
+}
+  let itemProducto = document.createElement("div"); // Creo el elemento para mostrar
+  let miTotal = totalCarrito();
+  itemProducto.innerHTML = `<p>TOTAL de la compra: ARS ${miTotal}<p>`;
   divCarrito.appendChild(itemProducto);
 }
 
+
+//RESTAR PRODUCTO Y BORRAR PRODUCTO.
 
 const restarProducto = (event) => {
   let idProducto = Number(event.target.getAttribute("data-id"));
@@ -150,25 +148,40 @@ const restarProducto = (event) => {
       return element;
     }
   });
-  // localStorage.setItem("carrito", JSON.stringify(carrito));
+  localStorage.setItem("carrito", JSON.stringify(carrito));
   renderizarCarrito();
 };
 
+const borrarProducto = (event) => {
+  let idProducto = Number(event.target.getAttribute("data-id")); 
+  carrito = carrito.filter((element) => element.id != idProducto); // filtra todo el carrito que NO sea igual al idProducto y arma otro carrito sin ese producto
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+  renderizarCarrito();
+};
+
+
 divCarrito.addEventListener("click", (event) => {
-  if (event.target.classList.contains("btn-menos")) {// contain dice, "si el elemento contiene esta clase hacer esto..."
-    restarProducto(event);
-  }
+  if (event.target.classList.contains("btn-menos"))
+    restarProducto(event);// lo que reste me lo lleva a 1 
+  
   if (event.target.classList.contains("btnBorrar")) {
     borrarProducto(event);
   }
 });
 
-}
+//TOTAL PRODUCTO.
+const totalCarrito = () => {
+  let miTotal = carrito.reduce(
+    (acum, iti) => acum + iti.precioTotal,
+    0
+  );
+  return miTotal;
+};
 
-inyectarCards();
+
+//BACKDROP CARRITO, este punto lo tengo que arreglar. 
 const addCarritoStore = document.getElementById('backdrop-carrito')
 const carritoShow = document.getElementById ('mostrar-carrito')
-
 
 const  carritoShowHandler = () => {
   backdrop.classList.toggle('visible');
@@ -182,3 +195,6 @@ const  carritoShowHandlerDelete = () => {
   addCarritoStore.classList.remove('visible');
 }
 carritoShow.addEventListener('click',carritoShowHandler);
+//Esto se ejecuta para armar la pagina principal y el LocalStorage
+inyectarCards();
+renderizarCarrito();
