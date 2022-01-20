@@ -9,7 +9,7 @@ html {
 
 body {
   margin: 0;
-   background-color:#EAE2D7;
+   background-color:#ffff;
 }
 
 button:focus {
@@ -23,7 +23,12 @@ header {
   justify-content: space-between;
   align-items: center;
   padding: 0 2.5rem;
-  background: #81ad83;
+}
+
+.option-head{
+  display:flex;
+  position: relative;
+  margin:10px;
 }
 
 header h1 {
@@ -305,7 +310,7 @@ select:focus {
 }
 
 .logo{
-    margin-top: -7vh;
+    margin-top: -4vh;
     font-family: 'Bebas Neue', cursive;
     font-size: 4vw;
 }
@@ -343,17 +348,17 @@ select:focus {
     font-size: 7vh;
 }
 .banner{
-    background-image: url("https://images.unsplash.com/photo-1532634922-8fe0b757fb13?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1172&q=80");
-    height: 300px;
-    width:100%;
-    padding: 300px 100px;
-    background-repeat: no-repeat;
+  background-image: url("https://images.unsplash.com/photo-1622880833523-7cf1c0bd4296?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80");
+  height: 300px;
+  width:100%;
+  padding: 300px 100px;
+  background-repeat: no-repeat;
   text-align: center;
   background-position: center center;
   background-size: cover;
-  position: relative;
+  /* position: relative; */
 }
-.banner:before {
+/* .banner:before {
   content:'';
   position: absolute;
     top: 0;
@@ -361,7 +366,7 @@ select:focus {
   left: 0;
   right: 0;
   background-color: rgba(0,0,0,0.6);
-}
+} */
 /* final BANNER*/
 
 
@@ -389,7 +394,7 @@ select:focus {
 
 .products-items{
   height: 100%;
-  background-color: #e4cfb7;
+  background-color: #f5f5f5;
   padding: 1rem;
   box-shadow: 0 3px 10px rgb(0 0 0 / 0.2);
   border-radius: 10%;
@@ -400,7 +405,9 @@ select:focus {
 }
 
 .products-items img{
-  height: 100%;
+  width:  25em;
+  height: 20em;
+
 }
 
 .grid-item{
@@ -441,7 +448,7 @@ footer p {
   width: 80%;
   top: 90vh;
   left: 40%;
-  /* display: none */ 
+  display: none 
 }
 .modal-carrito.visible {
   display: block;
@@ -500,4 +507,26 @@ footer p {
 #backdrop-carrito.visible {
   display: block;
   pointer-events: all;
+}
+
+/* #carrito-DOM button {
+  border-radius: 25%;
+} */
+
+.boton-carrito{
+  font: inherit;
+  margin: 0 auto;
+  padding: 1rem 10rem 1rem 10rem;
+  background: #415cd6;
+  border: 1px solid #ebebeb;
+  color: white;
+  border-radius: 6px;
+  box-shadow: 0 1px 8px rgba(0, 0, 0, 0.26);
+  cursor: pointer;
+}
+
+.boton-carrito:hover,
+.boton-carrito:active {
+  background: #f67722;
+  border-color: #f67722;
 }
