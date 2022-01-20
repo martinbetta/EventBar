@@ -49,7 +49,13 @@ pizzaNapolitana.agregarProducto();
 const divProducto = document.getElementById('grid-container');
 carrito= JSON.parse(localStorage.getItem("carrito")) || [];// es para que cada vez que inicie buscque el localStorage "carrito"
 const divCarrito = document.getElementById("carrito-DOM"); 
+const addCarritoModal = document.getElementById('add-carrito');
 
+const addButtoCarrito = () =>{
+  if (carrito.length > 0)
+  {addCarritoModal.classList.add('visible')}
+  else addCarritoModal.classList.remove('visible');
+}
 
 // HTML Donde se arma la pagina principal con las pizzas
 const inyectarCards = () => {
@@ -110,28 +116,53 @@ const enviarAlCarrito = (datosProductos) => {
 //HTML del Carrito, boton Mostrar carrito.
 function renderizarCarrito(){
 divCarrito.innerHTML = "";
+let itemProducto = document.createElement("div"); // Creo el elemento para mostrar
+let miCantidad = totalCarritoCant();
+let miTotal = totalCarrito();
+console.log(miTotal)
+// itemProducto.innerHTML = `<p>TOTAL de la compra: ARS ${miTotal}<p>`;
 for (let pizza of carrito) {
   //Acá en vez de mostrar solo el nombre, podemos montar la card completa usando plantillas literales
   divCarrito.innerHTML += `<div>
+     TOTAL de la compra: ARS ${miTotal} </p>
+      Total Productos: ${miCantidad} 
+      <hr/>
       <h4 class ="">${pizza.nombre}</h4> 
       <img id="carrito-img" class =""src="${pizza.imagen}" alt="${pizza.nombre}"><br>
       <p>Precio: ARS${pizza.precioPorUnidad}</p>
       <p>Precio Total: ARS${pizza.precioTotal}</p>
       <p>Cantidad : ${pizza.cantidad}</p>
+      <button  class="btn-mas" data-id=${pizza.id}> + </button>
       <button  class="btn-menos" data-id=${pizza.id}> - </button>
       <button class="btn btn-warning btnBorrar" data-id=${pizza.id} >Quitar del Carrito</button>
       <hr/>
       </div>
     `
-}
-  let itemProducto = document.createElement("div"); // Creo el elemento para mostrar
-  let miTotal = totalCarrito();
-  itemProducto.innerHTML = `<p>TOTAL de la compra: ARS ${miTotal}<p>`;
+  }
   divCarrito.appendChild(itemProducto);
+  addButtoCarrito();
 }
-
 
 //RESTAR PRODUCTO Y BORRAR PRODUCTO.
+const sumarProducto = (event) => {
+  let idProducto = Number(event.target.getAttribute("data-id"));
+  carrito = carrito.map((element) => {
+    if (element.id === idProducto) {
+      element.cantidad++;
+      element.precioTotal = element.precioTotal + element.precioPorUnidad;
+      if (element.cantidad === 0) {
+        element.cantidad = 1;
+        element.precioTotal = element.precioPorUnidad;
+      }
+      return element;
+    } else {
+      return element;
+    }
+  });
+  localStorage.setItem("carrito", JSON.stringify(carrito));
+  renderizarCarrito();
+};
+
 
 const restarProducto = (event) => {
   let idProducto = Number(event.target.getAttribute("data-id"));
@@ -159,15 +190,18 @@ const borrarProducto = (event) => {
   renderizarCarrito();
 };
 
-
 divCarrito.addEventListener("click", (event) => {
-  if (event.target.classList.contains("btn-menos"))
+  if (event.target.classList.contains("btn-menos")){
     restarProducto(event);// lo que reste me lo lleva a 1 
-  
-  if (event.target.classList.contains("btnBorrar")) {
+  }
+  if (event.target.classList.contains("btnBorrar")){
     borrarProducto(event);
   }
-});
+  if (event.target.classList.contains("btn-mas")){
+    sumarProducto(event);
+  }
+  });
+
 
 //TOTAL PRODUCTO.
 const totalCarrito = () => {
@@ -177,6 +211,11 @@ const totalCarrito = () => {
   );
   return miTotal;
 };
+const totalCarritoCant = () => {
+  let miCantidad = carrito.length
+  return miCantidad;
+};
+
 
 
 //BACKDROP CARRITO, este punto lo tengo que arreglar. 
