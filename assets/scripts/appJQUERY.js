@@ -37,9 +37,7 @@ pizzaNapolitana.agregarProducto();
 // const pizzas = "json/pizzas.JSON"
 // PIZZAS HTML DOM////
 
-const divProducto = document.getElementById('grid-container');
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];// es para que cada vez que inicie buscque el localStorage "carrito"
-const divCarrito = document.getElementById("carrito-DOM"); 
 const addCarritoModal = document.getElementById('add-carrito');
 
 //funcion para que el boton aparezca y desaparezca cuando esta vacio el carrito
@@ -83,9 +81,11 @@ const enviarAlCarrito = (datosProductos) => {
 console.log(carrito[1])
 
 // HTML Donde se arma la pagina principal con las pizzas
+
+/// Se implento JQUERY
 const inyectarCards = () => {
   pizzas.forEach((pizza) => {
-    divProducto.innerHTML += `
+    $('#grid-container').append( `
     <div class = 'products-items'>
     <div>
     <img  src="${pizza.image}" alt="${pizza.nombre}" class = "grid-item imgProd body-images">
@@ -95,17 +95,20 @@ const inyectarCards = () => {
     <button data-id="${pizza.id}" class ="boton-carrito agregar-carrito">Agregar </button>
     </div>
     </div>
-    `;
+    `);
   });
   let btnBuy = document.querySelectorAll(".agregar-carrito");
+
+  // let btnBuy = $(".agregar-carrito");
   btnBuy.forEach((element) => {
-    element.addEventListener("click", (event) => {
+    $(element).click ((event) => {
       enviarAlCarrito(event.target.parentElement); // Selecciono dentro del evento al padre para tomar todo el divProducto 
     });
   });
 };
+/// Se implento JQUERY
 
-
+const divCarrito = document.getElementById("carrito-DOM"); 
 //HTML del Carrito, boton Mostrar carrito.
 function renderizarCarrito(){
   divCarrito.innerHTML = "";
