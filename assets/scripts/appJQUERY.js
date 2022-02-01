@@ -37,6 +37,27 @@ pizzaNapolitana.agregarProducto();
 // const pizzas = "json/pizzas.JSON"
 // PIZZAS HTML DOM////
 
+
+
+//desafio JQUERY/////
+
+$("#masinfo").prepend('Envios a todo el pais <button id="btnmasinfo"> Mas Info </button>')
+
+$("#masinfo").prepend(`<div id = "infodelibery" style = "display:none"> Pedidos antes de las 22 horas en 20 min maximo, 
+pedidos despues de las 22 horas puede demorar hasta 40 min. Radio Maximo de envio Barrio Palermo. En caso de ser mas alejado consular demora y cargo extra </div>
+`)
+
+$("#btnmasinfo").click(()=>{
+  $("#infodelibery").toggle("lineal")
+})
+
+$(".option-head").slideUp(1000)
+                  .slideDown(1000);
+
+//desafio JQUERY/////
+
+ 
+
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];// es para que cada vez que inicie buscque el localStorage "carrito"
 const addCarritoModal = document.getElementById('add-carrito');
 
