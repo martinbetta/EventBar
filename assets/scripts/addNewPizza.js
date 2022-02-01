@@ -20,6 +20,8 @@ const userInputs = addEventModal.querySelectorAll('input, textarea, select');
 const entryTextSection = document.getElementById('entry-text')
 const deleteEventModal = document.getElementById('delete-modal');
 
+
+
 const updateListEvent = () => {
   if (Evento.titulo = '') {
     entryTextSection.style.display = 'block';
