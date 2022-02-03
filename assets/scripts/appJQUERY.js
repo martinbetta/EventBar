@@ -3,7 +3,7 @@ $( document ).ready(function()
 {
 console.log( "El DOM esta listo Muñeco!!" );
 });
-
+const pizzas = []
 class Pizza {
   constructor(id, nombre, ingredientes, image, precio, cantidad){
 		this.id = id;
@@ -20,7 +20,7 @@ class Pizza {
 }
 
 /// Creacion de Pizzas
-const pizzas = []
+
 const pizzaMuzzarella = new Pizza(1, 'Muzzarella', 'Queso, oregano y aceituna', 'img/pizza1.jpg', 20,1);
 const pizzaCalabreza = new Pizza(2, 'Calabreza', 'Calabreza, Muzzarella y aceituna', 'img/pizza2.jpg', 25,1);
 const pizzaVegetal = new Pizza(3, 'Vegetal', 'Queso, champignones, Morron Verde, aceituna', 'img/pizza3.jpg', 28,1);
@@ -34,7 +34,68 @@ pizzaVegetal.agregarProducto();
 pizzaCebolla.agregarProducto();
 pizzaAnchoas.agregarProducto();
 pizzaNapolitana.agregarProducto();
-// const pizzas = "json/pizzas.JSON"
+
+
+const PIZZAJSON = "json/pizzas.json"
+let productos = [];
+
+const inyectarCards = () => {
+  $.get(PIZZAJSON, function (resultado, estado) {
+    if (estado === "success"){
+      for (const pizza of resultado){
+        pizzas.push( new Pizza (pizza.id, pizza.nombre, pizza.ingredientes, pizza.image, pizza.precio, pizza.cantidad));
+        productos = resultado;
+        console.log(productos)
+        $('#grid-container').append( `
+        <div class = 'products-items'>
+        <div>
+        <img  src="${pizza.image}" alt="${pizza.nombre}" class = "grid-item imgProd body-images">
+        <h3 class = 'pizzaNom' id="">${pizza.nombre}</h3>
+        <p class = 'pizzaIng' id="">${pizza.ingredientes}</p>
+        <h4 class = 'pizzaPrec' id="">ARS <span>${pizza.precio}</span></h4>
+        <button data-id="${pizza.id}" class ="boton-carrito agregar-carrito">Agregar </button>
+        </div>
+        </div>
+        `);
+      }
+    }
+  }).done(()=>{   
+  let btnBuy = document.querySelectorAll(".agregar-carrito");
+  // let btnBuy = $(".agregar-carrito");
+  btnBuy.forEach((element) => {
+    $(element).click ((event) => {
+      enviarAlCarrito(event.target.parentElement); // Selecciono dentro del evento al padre para tomar todo el divProducto 
+      console.log(event)     
+    })
+  });
+  })
+}  
+
+// /// Se implento JQUERY
+// const inyectarCards = () => {
+//   pizzas.forEach((pizza) => {
+//     $('#grid-container').append( `
+//     <div class = 'products-items'>
+//     <div>
+//     <img  src="${pizza.image}" alt="${pizza.nombre}" class = "grid-item imgProd body-images">
+//     <h3 class = 'pizzaNom' id="">${pizza.nombre}</h3>
+//     <p class = 'pizzaIng' id="">${pizza.ingredientes}</p>
+//     <h4 class = 'pizzaPrec' id="">ARS <span>${pizza.precio}</span></h4>
+//     <button data-id="${pizza.id}" class ="boton-carrito agregar-carrito">Agregar </button>
+//     </div>
+//     </div>
+//     `);
+//   });
+//   let btnBuy = document.querySelectorAll(".agregar-carrito");
+
+//   // let btnBuy = $(".agregar-carrito");
+//   btnBuy.forEach((element) => {
+//     $(element).click ((event) => {
+//       enviarAlCarrito(event.target.parentElement); // Selecciono dentro del evento al padre para tomar todo el divProducto 
+//     });
+//   });
+// };
+
 // PIZZAS HTML DOM////
 
 
@@ -103,30 +164,7 @@ console.log(carrito[1])
 
 // HTML Donde se arma la pagina principal con las pizzas
 
-/// Se implento JQUERY
-const inyectarCards = () => {
-  pizzas.forEach((pizza) => {
-    $('#grid-container').append( `
-    <div class = 'products-items'>
-    <div>
-    <img  src="${pizza.image}" alt="${pizza.nombre}" class = "grid-item imgProd body-images">
-    <h3 class = 'pizzaNom' id="">${pizza.nombre}</h3>
-    <p class = 'pizzaIng' id="">${pizza.ingredientes}</p>
-    <h4 class = 'pizzaPrec' id="">ARS <span>${pizza.precio}</span></h4>
-    <button data-id="${pizza.id}" class ="boton-carrito agregar-carrito">Agregar </button>
-    </div>
-    </div>
-    `);
-  });
-  let btnBuy = document.querySelectorAll(".agregar-carrito");
 
-  // let btnBuy = $(".agregar-carrito");
-  btnBuy.forEach((element) => {
-    $(element).click ((event) => {
-      enviarAlCarrito(event.target.parentElement); // Selecciono dentro del evento al padre para tomar todo el divProducto 
-    });
-  });
-};
 /// Se implento JQUERY
 
 const divCarrito = document.getElementById("carrito-DOM"); 
