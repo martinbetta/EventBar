@@ -98,20 +98,6 @@ if (hayCarritoEnStorage) { //Si hay carrito guardado, que lo muestre por primera
 
 //-------------------------Hace que aparezca el boton, el arrayBotonesComprar son los botones de los productos--------------------
 
-// const arrayBotonesComprar = document.getElementsByClassName("agregar-carrito");
-
-// const agregarHandler = () =>{
-// for (const boton of arrayBotonesComprar) {
-//   boton.addEventListener('click', (event) => {// aca no usamos submit, usamos click, submit es para los form
-//     const idProd = event.target.id; //usamos el event.target.id para acceder al id del elemento
-//     agregarCarro(idProd);
-//     renderizarCarrito()
-//     // toggleBackdropCarrito()
-//   })
-// }
-// }
-// agregarHandler()
-
 carritoShow.addEventListener('click',carritoShowHandler);
 
 domElemen()
