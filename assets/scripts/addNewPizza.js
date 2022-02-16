@@ -31,7 +31,7 @@ const updateListEvent = () => {
   
 const toggleBackdrop = () =>{
   backdrop.classList.toggle('visible');
-  addCarritoStore.classList.toggle('visible'); /// LO TENGO QUE REEMPLAZAR
+  // addCarritoStore.classList.toggle('visible'); /// LO TENGO QUE REEMPLAZAR
 
 };
 
@@ -51,6 +51,7 @@ const cancelAddEventHandler = () =>{
     closeEventModal();
     clearEventInputs();
     toggleBackdrop();
+    toggleBackdropCarrito();
 };
   
   // Vaciar el Form luego de Usar para que no quede la ultima carga
@@ -60,7 +61,8 @@ const cancelAddEventHandler = () =>{
     }
   }
   /// VALIDADOR DE LOS INPUT y Creacion del Objeto/////////////
-  
+
+const precioPizzaEsp = 0
 const addEventHandler = () => {
   const nombreValue = userInputs[0].value;
   let pizzaValue = userInputs[1];  // Le saque el value para que nos traiga todo el array
@@ -86,9 +88,12 @@ const addEventHandler = () => {
     alert('Por favor ingresa valores validos');
   return;
   }
+ 
+
   const cargEvent = new Evento(nombreValue, datosSelect, mazaValue, cantidadPizzaValue, detalleValue, envio, id);
-  console.log(cargEvent);
   create(cargEvent)
+  
+  // console.log(cargEvent);
   closeEventModal();
   clearEventInputs();
   renderNewEventElem();
@@ -99,6 +104,7 @@ const addEventHandler = () => {
 const backdropClickHandler =() => {
   closeEventModal();
   cancelEventDelete();
+  toggleBackdropCarrito();
 };
   
   //// TOMAR ELEMENTOS DEL localStorage Mediante JSON y pasarlo a String//// 
@@ -160,10 +166,10 @@ const renderNewEventElem = () =>{
     newEventElement.innerHTML = `
     <div class="event-element__info">
       <h2>Nombre de la Pizza: ${event.nombre} </h2> 
-      <p>Pidio ${event.cantidadPizza} pizza/s de ${event.pizza}</p>
+      <p>Pidio ${event.cantidadPizza} pizza/s de ${event.pizza}</p><br>
       <p>La maza elegida es: ${event.maza}</p><br>
-      <p>Pedido extra :  ${event.detalle}</p>
-      <p>El detalle del pedido es:  ${event.envio}</p>
+      <p>Pedido extra :  ${event.detalle}</p><br>
+      <p>El detalle del pedido es:  ${event.envio}</p><br>
       </div>`;
   const listEvents =document.getElementById('event-list');
   listEvents.append(newEventElement);

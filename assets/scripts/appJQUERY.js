@@ -70,36 +70,6 @@ const inyectarCards = () => {
   });
   })
 }  
-
-// /// Se implento JQUERY
-// const inyectarCards = () => {
-//   pizzas.forEach((pizza) => {
-//     $('#grid-container').append( `
-//     <div class = 'products-items'>
-//     <div>
-//     <img  src="${pizza.image}" alt="${pizza.nombre}" class = "grid-item imgProd body-images">
-//     <h3 class = 'pizzaNom' id="">${pizza.nombre}</h3>
-//     <p class = 'pizzaIng' id="">${pizza.ingredientes}</p>
-//     <h4 class = 'pizzaPrec' id="">ARS <span>${pizza.precio}</span></h4>
-//     <button data-id="${pizza.id}" class ="boton-carrito agregar-carrito">Agregar </button>
-//     </div>
-//     </div>
-//     `);
-//   });
-//   let btnBuy = document.querySelectorAll(".agregar-carrito");
-
-//   // let btnBuy = $(".agregar-carrito");
-//   btnBuy.forEach((element) => {
-//     $(element).click ((event) => {
-//       enviarAlCarrito(event.target.parentElement); // Selecciono dentro del evento al padre para tomar todo el divProducto 
-//     });
-//   });
-// };
-
-// PIZZAS HTML DOM////
-
-
-
 //desafio JQUERY/////
 
 $("#masinfo").prepend('Envios a todo el pais <button id="btnmasinfo"> Mas Info </button>')
@@ -116,8 +86,6 @@ $(".option-head").slideUp(1000)
                   .slideDown(1000);
 
 //desafio JQUERY/////
-
- 
 
 let carrito = JSON.parse(localStorage.getItem("carrito")) || [];// es para que cada vez que inicie buscque el localStorage "carrito"
 const addCarritoModal = document.getElementById('add-carrito');
@@ -187,17 +155,38 @@ function renderizarCarrito(){
         </div>
       `
     };
-  let itemProducto = document.createElement("div"); // Creo el elemento para mostrar
-  // let miCantidad = totalCarritoCant();
+    // itemProducto.setAttribute("#btn-checkOut");
+    let itemProducto = document.createElement("div"); // Creo el elemento para mostrar
+  
   let miTotal = totalCarrito();
-  itemProducto.innerHTML = `TOTAL de la compra: ARS ${miTotal} </p>`
+  itemProducto.innerHTML = `<div><p>TOTAL de la compra: ARS ${miTotal} </p>
+  <button class='boton-checkOut' onClick ='checkOutMessage()'>Checkout</button> 
+  </div>`
+
+// $("#btn-checkOut").append(`<div><p>TOTAL de la compra: ARS ${miTotal} </p>
+//     <button class='boton-checkOut' onClick ='checkOutMessage()'>Checkout</button> 
+//     </div>`)
+
   divCarrito.appendChild(itemProducto);
   addButtoCarrito();
   let cantCarrito = cantidadCarrito();
   console.log (cantCarrito)
   carritoShow.innerHTML = `Mostrar Carrito Pizzas ${cantCarrito}`
-  
+  if (carrito.length <=0){ 
+  backdropPageCarrito.classList.remove('visible');
+
+  addCarritoStore.classList.remove('visible');
+  }
 }
+
+// const checkOutMessage = () =>{
+//   let fecha =new Date()
+//   swal({
+//     text:"fecha de hoy",
+//     title:fecha,
+//     icon:"info"
+//   })
+// }
 
 // const detalle = document.getElementsByClassName('detalle');
 // console.log(detalle);
@@ -281,10 +270,11 @@ const backdropCart = document.getElementById('backdrop-carrito');
 //BACKDROP CARRITO, este punto lo tengo que arreglar. 
 const addCarritoStore = document.getElementById('backdrop-carrito')
 const carritoShow = document.getElementById ('mostrar-carrito')
+const backdropPageCarrito = document.getElementById ('backdrop-carrito2')
 // console.log(carritoShow)
 
 const  carritoShowHandler = () => {
-  backdrop.classList.toggle('visible');
+  backdropPageCarrito.classList.toggle('visible');
   // toggleBackdropCarrito();
   addCarritoStore.classList.toggle('visible');
 }
@@ -299,3 +289,12 @@ carritoShow.addEventListener('click',carritoShowHandler);
 
 inyectarCards();
 renderizarCarrito();
+
+
+const backdropCarrito = document.getElementById('backdrop-carrito');
+const toggleBackdropCarrito = () =>{
+  backdropCarrito.classList.toggle('visible');
+  addCarritoStore.classList.toggle('visible'); /// LO TENGO QUE REEMPLAZAR
+};
+
+
